@@ -19,10 +19,11 @@ def hashfile(inputfile):
     checksumsha256 = checksumsha256.hexdigest()
 
 # shows de hashes in the terminal
-    print ("File Name: %s" % inputfile)
-    print ("MD5: %r" % checksummd5)
-    print ("SHA1: %r" % checksumsha1)
-    print ("SHA256: %r" % checksumsha256)
+    print("File Name: %s" % inputfile)
+    print("MD5: %r" % checksummd5)
+    print("SHA1: %r" % checksumsha1)
+    print("SHA256: %r" % checksumsha256)
+    print("")
 
     with open("ChecksumLog.txt", "a") as myfile:  # This writes the hashes to a file
         myfile.write("File Name: %s" % inputfile + "\n")

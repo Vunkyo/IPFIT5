@@ -1,5 +1,5 @@
 import HashChecksum
-import RecursingToCsv
+import AskStuf
 
 # SDR Stands for Sander, Dennis & Remon
 print("###########################################################################")
@@ -29,6 +29,9 @@ def clearhashfile():
 
 
 def loadimagefile():
+    AskStuf.ask()
+    AskStuf.save("ChecksumLog.txt")
+
     print("---------------------------------------------------------------------------")
 
     imagefile = input("Choose your image file: ")
@@ -37,8 +40,6 @@ def loadimagefile():
     print("")
 
     HashChecksum.hashfile(imagefile)
-
-    RecursingToCsv.openimage(imagefile)
 
 
 def openpcapfile():
@@ -53,13 +54,14 @@ def print_menu():  # Your menu design here
     print("4. Exit")
     print(75 * "-")
     print("")
- # dit is een test
+# dit is een test. een beter optie menu word later toegevoegd
+
 
 loop = True
 
 while loop:  # While loop which will keep going until loop = False
     print_menu()  # Displays menu
-    choice = input("Enter your choice [1-5]: ")
+    choice = input("Enter your choice [1-4]: ")
 
     if choice == '1':
         print("Menu 1 has been selected")

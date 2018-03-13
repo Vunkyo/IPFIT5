@@ -1,15 +1,11 @@
-File Name: D:/image.dd
-MD5: '8274425de767b30b2fff1124ab54abb5'
-SHA1: '2201589aa3ed709b3665e4ff979e10c6ad5137fc'
-SHA256: '0d6afb7e939f0936f40afdc759b5a354ea5427ec250a47e7b904ab1ea800a01d'
+Name of researcher: Remon Hoogendijk
+Case number: 03
+Evidence number: 03
+Unique description: Test image
+Notes: Dit is de derde test dan ga ik echt slapen ik was blijkbaar de %s vergeten
 
-File Name: D:/image.dd
-MD5: '8274425de767b30b2fff1124ab54abb5'
-SHA1: '2201589aa3ed709b3665e4ff979e10c6ad5137fc'
-SHA256: '0d6afb7e939f0936f40afdc759b5a354ea5427ec250a47e7b904ab1ea800a01d'
-
-File Name: D:\image.dd
-MD5: '8274425de767b30b2fff1124ab54abb5'
-SHA1: '2201589aa3ed709b3665e4ff979e10c6ad5137fc'
-SHA256: '0d6afb7e939f0936f40afdc759b5a354ea5427ec250a47e7b904ab1ea800a01d'
+File Name: TestImage.E01
+MD5: 'ed3a3937885eed75eae2c93e1213fa29'
+SHA1: 'd05701a019d3b18b3b7ac595f48319a42d820978'
+SHA256: '67b2f3bdbfe15319d531ad07b6a4c5ba15b8e3ce29ff5b1ac026947277bb916c'
 
