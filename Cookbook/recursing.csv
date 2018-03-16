@@ -1,0 +1,51 @@
+Partition,File,File Ext,File Type,Create Date,Modify Date,Change Date,Size,File Path
+PARTITION 2,System Volume Information,,DIR,2016-04-04 20:20:25,,2016-04-04 20:20:26,4096,/System Volume Information
+PARTITION 2,IndexerVolumeGuid,,FILE,2016-04-04 20:20:25,,2016-04-04 20:20:26,76,/System Volume Information/IndexerVolumeGuid
+PARTITION 2,WPSettings.dat,dat,FILE,2017-12-22 07:31:06,,2017-12-22 07:31:08,12,/System Volume Information/WPSettings.dat
+PARTITION 2,Mijn Video.mp4,mp4,FILE,2018-01-31 16:12:34,,2018-01-17 18:08:18,98448577,/Mijn Video.mp4
+PARTITION 2,Project Voedselbank Dag 4.mp4,mp4,FILE,2018-01-31 16:12:42,,2018-01-18 23:08:30,97310012,/Project Voedselbank Dag 4.mp4
+PARTITION 2,Project Voedselbank Dag 5 en 6.mp4,mp4,FILE,2018-01-31 16:12:49,,2018-01-20 21:59:42,125954389,/Project Voedselbank Dag 5 en 6.mp4
+PARTITION 2,Project Voedselbank Dag 7.mp4,mp4,FILE,2018-01-31 16:12:59,,2018-01-22 01:02:56,89591575,/Project Voedselbank Dag 7.mp4
+PARTITION 2,VID-20180119-WA0004.mp4,mp4,FILE,2018-01-31 16:14:22,,2018-01-19 14:02:24,1226561,/VID-20180119-WA0004.mp4
+PARTITION 2,VID_20180120_194250.mp4,mp4,FILE,2018-01-31 16:14:31,,2018-01-20 19:42:50,9464752,/VID_20180120_194250.mp4
+PARTITION 2,VID_20180120_194859.mp4,mp4,FILE,2018-01-31 16:14:32,,2018-01-20 19:49:00,12676849,/VID_20180120_194859.mp4
+PARTITION 2,VID_20180115_110828.mp4,mp4,FILE,2018-01-31 16:15:02,,2018-01-15 11:08:28,19135240,/VID_20180115_110828.mp4
+PARTITION 2,VID_20180115_130343.mp4,mp4,FILE,2018-01-31 16:15:25,,2018-01-15 13:03:44,93291013,/VID_20180115_130343.mp4
+PARTITION 2,.Spotlight-V100,,DIR,2018-01-31 16:16:07,,2018-01-31 16:16:06,4096,/.Spotlight-V100
+PARTITION 2,.fseventsd,,DIR,2018-01-31 16:16:07,,2018-01-31 16:16:06,4096,/.fseventsd
+PARTITION 2,fseventsd-uuid,,FILE,2018-01-31 16:17:44,,2018-01-31 16:17:44,36,/.fseventsd/fseventsd-uuid
+PARTITION 2,00000000003b7bce,,FILE,2018-01-31 16:17:01,,2018-01-31 16:17:00,44,/.fseventsd/00000000003b7bce
+PARTITION 2,00000000003b7bcf,,FILE,2018-01-31 16:17:01,,2018-01-31 16:17:00,70,/.fseventsd/00000000003b7bcf
+PARTITION 2,Onderzoek,,DIR,2018-02-05 22:16:13,,2018-02-04 20:06:06,4096,/Onderzoek
+PARTITION 2,COC inhoud Tim.xlsx,xlsx,FILE,2018-02-05 22:16:13,,2018-01-19 16:08:24,12331,/Onderzoek/COC inhoud Tim.xlsx
+PARTITION 2,COC Raspberry Pi.docx,docx,FILE,2018-02-05 22:16:14,,2017-12-24 10:54:22,86083,/Onderzoek/COC Raspberry Pi.docx
+PARTITION 2,COC Raspberry Pi.pdf,pdf,FILE,2018-02-05 22:16:14,,2018-01-09 21:47:56,525117,/Onderzoek/COC Raspberry Pi.pdf
+PARTITION 2,COC SD Kaart.docx,docx,FILE,2018-02-05 22:16:14,,2017-12-24 11:30:40,70455,/Onderzoek/COC SD Kaart.docx
+PARTITION 2,COC SD Kaart.pdf,pdf,FILE,2018-02-05 22:16:14,,2018-01-09 21:47:40,528233,/Onderzoek/COC SD Kaart.pdf
+PARTITION 2,COE Tim ipfnet.vsd,vsd,FILE,2018-02-05 22:16:14,,2018-01-19 16:09:46,93696,/Onderzoek/COE Tim ipfnet.vsd
+PARTITION 2,copy.jpg,jpg,FILE,2018-02-05 22:16:14,,2018-01-02 19:04:28,38793,/Onderzoek/copy.jpg
+PARTITION 2,CREATE DB.jpg,jpg,FILE,2018-02-05 22:16:14,,2018-01-03 17:49:58,18885,/Onderzoek/CREATE DB.jpg
+PARTITION 2,Edittedpage.jpg,jpg,FILE,2018-02-05 22:16:14,,2018-01-03 18:10:56,128786,/Onderzoek/Edittedpage.jpg
+PARTITION 2,Evidence Item Information.jpg,jpg,FILE,2018-02-05 22:16:14,,2017-12-24 11:08:32,24398,/Onderzoek/Evidence Item Information.jpg
+PARTITION 2,Hasht.jpg,jpg,FILE,2018-02-05 22:16:14,,2017-12-24 11:29:38,69538,/Onderzoek/Hasht.jpg
+PARTITION 2,hendrikauthlog.jpg,jpg,FILE,2018-02-05 22:16:14,,2017-12-26 11:41:22,36690,/Onderzoek/hendrikauthlog.jpg
+PARTITION 2,Hiddenpage.jpg,jpg,FILE,2018-02-05 22:16:14,,2018-01-03 18:10:08,104801,/Onderzoek/Hiddenpage.jpg
+PARTITION 2,Insert DB.jpg,jpg,FILE,2018-02-05 22:16:14,,2018-01-03 17:51:58,26515,/Onderzoek/Insert DB.jpg
+PARTITION 2,loh.txt,txt,FILE,2018-02-05 22:16:15,,2017-12-28 10:59:48,43,/Onderzoek/loh.txt
+PARTITION 2,Making image.jpg,jpg,FILE,2018-02-05 22:16:15,,2017-12-24 11:10:52,37920,/Onderzoek/Making image.jpg
+PARTITION 2,Onderzoek Pi Tim v1.pdf,pdf,FILE,2018-02-05 22:16:15,,2018-01-09 21:45:40,1384072,/Onderzoek/Onderzoek Pi Tim v1.pdf
+PARTITION 2,Onderzoek Pi Tim.docx,docx,FILE,2018-02-05 22:16:15,,2018-02-04 19:58:24,919412,/Onderzoek/Onderzoek Pi Tim.docx
+PARTITION 2,Onderzoek Pi Tim.pdf,pdf,FILE,2018-02-05 22:16:15,,2018-01-19 18:55:22,1477384,/Onderzoek/Onderzoek Pi Tim.pdf
+PARTITION 2,Onderzoek Pi.docx,docx,FILE,2018-02-05 22:16:15,,2018-01-02 09:40:00,393612,/Onderzoek/Onderzoek Pi.docx
+PARTITION 2,Reflectieverslag Tim ipfnet.pdf,pdf,FILE,2018-02-05 22:16:15,,2018-01-20 15:43:22,889014,/Onderzoek/Reflectieverslag Tim ipfnet.pdf
+PARTITION 2,Reflectieverslag Tim.docx,docx,FILE,2018-02-05 22:16:15,,2018-01-20 15:43:00,998702,/Onderzoek/Reflectieverslag Tim.docx
+PARTITION 2,Reflectieverslag Tim.pdf,pdf,FILE,2018-02-05 22:16:16,,2018-01-20 14:36:38,749089,/Onderzoek/Reflectieverslag Tim.pdf
+PARTITION 2,rogierauthlog.jpg,jpg,FILE,2018-02-05 22:16:16,,2017-12-26 11:36:58,43172,/Onderzoek/rogierauthlog.jpg
+PARTITION 2,SanDisk Write.jpg,jpg,FILE,2018-02-05 22:16:16,,2017-12-24 11:06:10,16724,/Onderzoek/SanDisk Write.jpg
+PARTITION 2,wordpress accounts.jpg,jpg,FILE,2018-02-05 22:16:16,,2018-01-03 18:06:02,79647,/Onderzoek/wordpress accounts.jpg
+PARTITION 2,wordpress verwijdering.jpg,jpg,FILE,2018-02-05 22:16:16,,2018-01-03 18:08:42,29207,/Onderzoek/wordpress verwijdering.jpg
+PARTITION 2,Writeblocker.jpg,jpg,FILE,2018-02-05 22:16:16,,2017-12-24 11:04:44,83790,/Onderzoek/Writeblocker.jpg
+PARTITION 2,$MBR,,FILE,,,,512,/$MBR
+PARTITION 2,$FAT1,,FILE,,,,3925504,/$FAT1
+PARTITION 2,$FAT2,,FILE,,,,3925504,/$FAT2
+PARTITION 2,$OrphanFiles,,FILE,,,,0,/$OrphanFiles

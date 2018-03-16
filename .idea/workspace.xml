@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="01f32bf5-f8a7-416c-84d1-ac8316992dd8" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/Remon/__init__.py" />
+    <list default="true" id="01f32bf5-f8a7-416c-84d1-ac8316992dd8" name="Default" comment="Changed File structure so project members can more easily work together in 1 git">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/AskStuf.py" afterPath="$PROJECT_DIR$/AskStuf.py" />
-      <change beforePath="$PROJECT_DIR$/ChecksumLog.txt" afterPath="$PROJECT_DIR$/ChecksumLog.txt" />
-      <change beforePath="$PROJECT_DIR$/Cookbook/RecursingToCsv.py" afterPath="$PROJECT_DIR$/Cookbook/RecursingToCsv.py" />
-      <change beforePath="$PROJECT_DIR$/Cookbook/evidence_metadata.py" afterPath="$PROJECT_DIR$/Cookbook/evidence_metadata.py" />
-      <change beforePath="$PROJECT_DIR$/Cookbook/extract_file_type.py" afterPath="$PROJECT_DIR$/Cookbook/extract_file_type.py" />
-      <change beforePath="$PROJECT_DIR$/Cookbook/open_evidence.py" afterPath="$PROJECT_DIR$/open_evidence.py" />
-      <change beforePath="$PROJECT_DIR$/Main.py" afterPath="$PROJECT_DIR$/Main.py" />
-      <change beforePath="$PROJECT_DIR$/test.csv" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -236,6 +227,11 @@
             <path>
               <item name="IPFIT5" type="b2602c69:ProjectViewProjectNode" />
               <item name="IPFIT5" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="IPFIT5" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IPFIT5" type="462c0819:PsiDirectoryNode" />
+              <item name="Remon" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -563,7 +559,21 @@
       <option name="project" value="LOCAL" />
       <updated>1520937762115</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Changed File structure so project members can more easily work together in 1 git">
+      <created>1521200842096</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1521200842096</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Adding remaining files">
+      <created>1521201401185</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1521201401185</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -575,7 +585,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46871686" sideWeight="0.49582464" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35052082" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35052082" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -600,7 +610,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
+    <MESSAGE value="Changed File structure so project members can more easily work together in 1 git" />
+    <MESSAGE value="Adding remaining files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding remaining files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -821,6 +833,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-85">
           <caret line="6" column="24" lean-forward="false" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
