@@ -121,7 +121,7 @@ def compute(cap_file):
                 date_time = str(datetime.datetime.utcfromtimestamp(timestamp))
                 
                 # "src port:" , tcp.sport , "dst port:" , tcp.dport
-                print("No.:" , counter , "Timestamp: ", date_time , ip_info , "Poort number:", tcp.sport)
+                print("No.:" , counter , "Timestamp: ", date_time , ip_info , "Port number:", tcp.sport)
 
                 #Put the source and destination in the list ips
                 ips.append("Source:")
