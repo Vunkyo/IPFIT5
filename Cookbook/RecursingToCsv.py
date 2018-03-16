@@ -186,29 +186,3 @@ class EWFImgInfo(pytsk3.Img_Info):
 
     def get_size(self):
         return self._ewf_handle.get_media_size()
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description=__description__,
-        epilog="Developed by {} on {}".format(
-            ", ".join(__authors__), __date__)
-    )
-    parser.add_argument("EVIDENCE_FILE", help="Evidence file path")
-    parser.add_argument("TYPE", help="Type of Evidence",
-                        choices=("raw", "ewf"))
-    parser.add_argument("OUTPUT_CSV", help="Output CSV with lookup results")
-    parser.add_argument("-p", help="Partition Type",
-                        choices=("DOS", "GPT", "MAC", "SUN"))
-    args = parser.parse_args()
-
-    directory = os.path.dirname(args.OUTPUT_CSV)
-    if not os.path.exists(directory) and directory != "":
-        os.makedirs(directory)
-
-    if os.path.exists(args.EVIDENCE_FILE) and os.path.isfile(args.EVIDENCE_FILE):
-        main(args.EVIDENCE_FILE, args.TYPE, args.OUTPUT_CSV, args.p)
-    else:
-        print("[-] Supplied input file {} does not exist or is not a "
-              "file".format(args.EVIDENCE_FILE))
-        sys.exit(1)

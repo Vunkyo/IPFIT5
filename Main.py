@@ -1,5 +1,6 @@
 import HashChecksum
 import AskStuf
+import open_evidence
 
 # SDR Stands for Sander, Dennis & Remon
 print("###########################################################################")
@@ -23,6 +24,8 @@ print("#                                                                        
 print("###########################################################################")
 print("")
 
+global var
+var = 0
 
 def clearhashfile():
     HashChecksum.clearfile()
@@ -34,19 +37,28 @@ def loadimagefile():
 
     print("---------------------------------------------------------------------------")
 
-    imagefile = input("Choose your image file: ")
+    imagefile = raw_input("Choose your image file: ")
+    imagetype = raw_input("Is your image raw of ewf? ")
+    imageoffset = input("What is your image offset? (if you are unsure try 32256) ")
+    # the offset will be "32256" for alot of images
 
     print("---------------------------------------------------------------------------")
     print("")
 
     HashChecksum.hashfile(imagefile)
 
+    open_evidence.main(imagefile, imagetype, imageoffset)
+
+    global var
+    var = 1
+
 
 def openpcapfile():
     print("Opening pcap")
 
 
-def print_menu():  # Your menu design here
+def print_menu1():
+    print("")
     print(34 * "-", "MENU", 34 * "-")
     print("1. Load Image file")
     print("2. Load PCAP file")
@@ -57,25 +69,54 @@ def print_menu():  # Your menu design here
 # dit is een test. een beter optie menu word later toegevoegd
 
 
+def print_menu2():
+    print("")
+    print(34 * "-", "MENU", 34 * "-")
+    print("1. Foto's")
+    print("2. Mail")
+    print("3. Back")
+    print("4. Exit")
+    print(75 * "-")
+    print("")
+
+
 loop = True
 
 while loop:  # While loop which will keep going until loop = False
-    print_menu()  # Displays menu
-    choice = input("Enter your choice [1-4]: ")
-
-    if choice == '1':
-        print("Menu 1 has been selected")
-        loadimagefile()
-    elif choice == '2':
-        print("Menu 2 has been selected")
-        openpcapfile()
-    elif choice == '3':
-        print("Menu 3 has been selected")
-        clearhashfile()
-    elif choice == '4':
-        print("Exit")
-        # You can add your code or functions here
-        loop = False  # This will make the while loop to end as not value of loop is set to False
-    else:
-        # Any integer inputs other than values 1-5 we print an error message
-        input("Wrong option selection. Press ENTER to try again..")
+    if var == 0:
+        print_menu1()  # Displays menu
+        choice = raw_input("Enter your choice [1-4]: ")
+        if choice == '1':
+            print("Menu 1 has been selected")
+            loadimagefile()
+        elif choice == '2':
+            print("Menu 2 has been selected")
+            openpcapfile()
+        elif choice == '3':
+            print("Menu 3 has been selected")
+            clearhashfile()
+        elif choice == '4':
+            print("Exit")
+            # You can add your code or functions here
+            loop = False  # This will make the while loop to end as not value of loop is set to False
+        else:
+            # Any integer inputs other than values 1-4 we print an error message
+            input("Wrong option selection. Press ENTER to try again..")
+    elif var == 1:
+        print_menu2()  # Displays menu
+        choice = raw_input("Enter your choice [1-4]: ")
+        if choice == '1':
+            print("Menu 1 has been selected")
+        elif choice == '2':
+            print("Menu 2 has been selected")
+        elif choice == '3':
+            print("Menu 3 has been selected")
+            print("Going back")
+            var = 0
+        elif choice == '4':
+            print("Exit")
+            # You can add your code or functions here
+            loop = False  # This will make the while loop to end as not value of loop is set to False
+        else:
+            # Any integer inputs other than values 1-4 we print an error message
+            input("Wrong option selection. Press ENTER to try again..")

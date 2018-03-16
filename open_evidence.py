@@ -88,26 +88,3 @@ def main(image, img_type, offset):
         modify = f.info.meta.mtime
         table.append([name, f_type, size, create, modify])
     print(tabulate(table, headers="firstrow"))
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description=__description__,
-        epilog="Developed by {} on {}".format(
-            ", ".join(__authors__), __date__)
-    )
-    parser.add_argument("EVIDENCE_FILE", help="Evidence file path")
-    parser.add_argument("TYPE",
-                        help="Type of evidence: raw (dd) or EWF (E01)",
-                        choices=("raw", "ewf"))
-    parser.add_argument("-o", "--offset",
-                        help="Partition byte offset", type=int)
-    args = parser.parse_args()
-
-    if os.path.exists(args.EVIDENCE_FILE) and \
-            os.path.isfile(args.EVIDENCE_FILE):
-        main(args.EVIDENCE_FILE, args.TYPE, args.offset)
-    else:
-        print("[-] Supplied input file {} does not exist or is not a "
-              "file".format(args.EVIDENCE_FILE))
-        sys.exit(1)

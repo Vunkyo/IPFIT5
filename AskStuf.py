@@ -1,11 +1,11 @@
 def ask():  # vraag naar gegevens
     print("Please fill in the form below.")
 
-    ask.reseacher_name = input("Name of researcher: ")
-    ask.case_nr = input("Case number: ")
-    ask.evidence_nr = input("Evidence number: ")
-    ask.unique_description = input("Unique description: ")
-    ask.notes = input("Notes: ")
+    ask.reseacher_name = raw_input("Name of researcher: ")
+    ask.case_nr = raw_input("Case number: ")
+    ask.evidence_nr = raw_input("Evidence number: ")
+    ask.unique_description = raw_input("Unique description: ")
+    ask.notes = raw_input("Notes: ")
     print("")
 
 
