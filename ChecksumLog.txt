@@ -9,3 +9,25 @@ MD5: 'aa9ffddcfba2a3cf12122c589867739b'
 SHA1: 'b5c46ac9e9ffb0a10e4b60284283d6811194cb7b'
 SHA256: '433f955bb998f14205b9f2e1c6cd9bdf2f1962a47da765cfa907cb80fc1d5577'
 
+Name of researcher: Remon Hoogendijk
+Case number: 01
+Evidence number: 77
+Unique description: test
+Notes: dit is een test
+
+File Name: TestImage/RawTestImage.dd
+MD5: 'aa9ffddcfba2a3cf12122c589867739b'
+SHA1: 'b5c46ac9e9ffb0a10e4b60284283d6811194cb7b'
+SHA256: '433f955bb998f14205b9f2e1c6cd9bdf2f1962a47da765cfa907cb80fc1d5577'
+
+Name of researcher: ets
+Case number: test
+Evidence number: tes
+Unique description: tes
+Notes: tes
+
+File Name: TestImage/RawTestImage.dd
+MD5: 'aa9ffddcfba2a3cf12122c589867739b'
+SHA1: 'b5c46ac9e9ffb0a10e4b60284283d6811194cb7b'
+SHA256: '433f955bb998f14205b9f2e1c6cd9bdf2f1962a47da765cfa907cb80fc1d5577'
+

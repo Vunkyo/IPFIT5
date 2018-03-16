@@ -1,6 +1,10 @@
 import HashChecksum
 import AskStuf
 import open_evidence
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' + 'Sander'))
+from Sander import Pcap
 
 # SDR Stands for Sander, Dennis & Remon
 print("###########################################################################")
@@ -59,7 +63,7 @@ def openpcapfile():
 
 def print_menu1():
     print("")
-    print(34 * "-", "MENU", 34 * "-")
+    print(34 * '-', 'MENU', 34 * '-')
     print("1. Load Image file")
     print("2. Load PCAP file")
     print("3. Clear Hash Log")
