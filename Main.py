@@ -3,7 +3,7 @@ import AskStuf
 import open_evidence
 import os
 import sys
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' + 'Sander'))
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '../' + 'Sander'))
 from Sander import Pcap
 
 # SDR Stands for Sander, Dennis & Remon
