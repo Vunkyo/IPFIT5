@@ -6,7 +6,7 @@ import datetime
 import time
 import hashlib
 import os.path
-from tkinter import *
+# from tkinter import *
 from pathlib import Path
 
 #Transform a int ip address to a human readable ip address (ipv4)
