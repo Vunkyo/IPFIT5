@@ -1,6 +1,12 @@
+from __future__ import print_function
+from argparse import ArgumentParser, FileType
 import extract_file_type
 import EML
 import os
+
+__authors__ = ["Chapin Bryce", "Preston Miller"]
+__date__ = 20170815
+__description__ = "Utility to parse text and attachments from EML files"
 
 
 def main(image, image_type, part_type):
@@ -24,9 +30,18 @@ def main(image, image_type, part_type):
             loop = loop + 1
 
 
+# looped door een folder en print alle files met jpg extensies.
+# moet worden aangepast naar mail extensies
+# kan de mail parser uitvoeren zodra dat werkt
 def recursefolder():
-    for filename in os.listdir('../Extracted'):
-        EML.main(filename)
+    for root, dirs, files in os.walk("\Extracted"):
+        for filename in files:
+            if filename.endswith(".jpg"):
+                fileloc = os.path.join(root, filename)
+                print(fileloc)
 
 
-recursefolder()
+EML.main(EML.args.EML_FILE)
+
+# recursefolder()
+

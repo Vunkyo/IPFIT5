@@ -1,4 +1,5 @@
 from __future__ import print_function
+from argparse import ArgumentParser, FileType
 from email import message_from_file
 import os
 import quopri
@@ -32,7 +33,7 @@ __date__ = 20170815
 __description__ = "Utility to parse text and attachments from EML files"
 
 
-def process_payload(payload, input_file):
+def process_payload(payload):
     print(payload.get_content_type() + "\n" + "=" * len(
         payload.get_content_type()))
     body = quopri.decodestring(payload.get_payload())
@@ -45,7 +46,7 @@ def process_payload(payload, input_file):
             body = body.decode('cp1252')
 
     if payload.get_content_type() == "text/html":
-        outfile = os.path.basename(input_file) + ".html"
+        outfile = os.path.basename(args.EML_FILE.name) + ".html"
         open(outfile, 'w').write(body)
     elif payload.get_content_type().startswith('application'):
         outfile = open(payload.get_filename(), 'wb')
@@ -58,7 +59,6 @@ def process_payload(payload, input_file):
 
 
 def main(input_file):
-    # type: (object) -> object
     emlfile = message_from_file(input_file)
 
     # Start with the headers
@@ -69,9 +69,20 @@ def main(input_file):
     print("\nBody\n")
     if emlfile.is_multipart():
         for part in emlfile.get_payload():
-            process_payload(part, input_file)
+            process_payload(part)
     else:
-        process_payload(emlfile[1], input_file)
+        process_payload(emlfile[1])
 
 
-main("mail.eml")
+# main("mail.eml")
+if __name__ == '__main__':
+    parser = ArgumentParser(
+        description=__description__,
+        epilog="Developed by {} on {}".format(
+            ", ".join(__authors__), __date__)
+    )
+    parser.add_argument("EML_FILE",
+                        help="Path to EML File", type=FileType('r'))
+    args = parser.parse_args()
+    args.EML_FILE = 'mail.eml'
+    main(args.EML_FILE)
