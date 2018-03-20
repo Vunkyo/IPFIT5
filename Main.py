@@ -27,6 +27,7 @@ print("")
 
 var = 0
 
+
 def clearhashfile():
     HashChecksum.clearfile()
 
