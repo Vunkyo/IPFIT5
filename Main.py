@@ -1,6 +1,7 @@
 import HashChecksum
 import AskStuf
 import open_evidence
+from Sander import Pcap
 
 # SDR Stands for Sander, Dennis & Remon
 print("###########################################################################")
@@ -24,8 +25,8 @@ print("#                                                                        
 print("###########################################################################")
 print("")
 
-global var
 var = 0
+
 
 def clearhashfile():
     HashChecksum.clearfile()
@@ -53,13 +54,9 @@ def loadimagefile():
     var = 1
 
 
-def openpcapfile():
-    print("Opening pcap")
-
-
 def print_menu1():
     print("")
-    print(34 * "-", "MENU", 34 * "-")
+    print("----------------------------------- MENU ----------------------------------- ")
     print("1. Load Image file")
     print("2. Load PCAP file")
     print("3. Clear Hash Log")
@@ -80,43 +77,49 @@ def print_menu2():
     print("")
 
 
-loop = True
+def main():
+    loop = True
+    global var
 
-while loop:  # While loop which will keep going until loop = False
-    if var == 0:
-        print_menu1()  # Displays menu
-        choice = raw_input("Enter your choice [1-4]: ")
-        if choice == '1':
-            print("Menu 1 has been selected")
-            loadimagefile()
-        elif choice == '2':
-            print("Menu 2 has been selected")
-            openpcapfile()
-        elif choice == '3':
-            print("Menu 3 has been selected")
-            clearhashfile()
-        elif choice == '4':
-            print("Exit")
-            # You can add your code or functions here
-            loop = False  # This will make the while loop to end as not value of loop is set to False
-        else:
-            # Any integer inputs other than values 1-4 we print an error message
-            input("Wrong option selection. Press ENTER to try again..")
-    elif var == 1:
-        print_menu2()  # Displays menu
-        choice = raw_input("Enter your choice [1-4]: ")
-        if choice == '1':
-            print("Menu 1 has been selected")
-        elif choice == '2':
-            print("Menu 2 has been selected")
-        elif choice == '3':
-            print("Menu 3 has been selected")
-            print("Going back")
-            var = 0
-        elif choice == '4':
-            print("Exit")
-            # You can add your code or functions here
-            loop = False  # This will make the while loop to end as not value of loop is set to False
-        else:
-            # Any integer inputs other than values 1-4 we print an error message
-            input("Wrong option selection. Press ENTER to try again..")
+    while loop:  # While loop which will keep going until loop = False
+        if var == 0:
+            print_menu1()  # Displays menu
+            choice = raw_input("Enter your choice [1-4]: ")
+            if choice == '1':
+                print("Menu 1 has been selected")
+                loadimagefile()
+            elif choice == '2':
+                print("Menu 2 has been selected")
+                Pcap.start()
+            elif choice == '3':
+                print("Menu 3 has been selected")
+                clearhashfile()
+            elif choice == '4':
+                print("Exit")
+                # You can add your code or functions here
+                loop = False  # This will make the while loop to end as not value of loop is set to False
+            else:
+                # Any integer inputs other than values 1-4 we print an error message
+                input("Wrong option selection. Press ENTER to try again..")
+        elif var == 1:
+            print_menu2()  # Displays menu
+            choice = raw_input("Enter your choice [1-4]: ")
+            if choice == '1':
+                print("Menu 1 has been selected")
+            elif choice == '2':
+                print("Menu 2 has been selected")
+            elif choice == '3':
+                print("Menu 3 has been selected")
+                print("Going back")
+                var = 0
+            elif choice == '4':
+                print("Exit")
+                # You can add your code or functions here
+                loop = False  # This will make the while loop to end as not value of loop is set to False
+            else:
+                # Any integer inputs other than values 1-4 we print an error message
+                input("Wrong option selection. Press ENTER to try again..")
+
+
+if __name__ == "__main__":
+    main()
