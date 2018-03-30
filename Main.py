@@ -2,6 +2,7 @@ import HashChecksum
 import AskStuf
 import open_evidence
 from Sander import Pcap
+from Remon import oudeopdracht
 
 # SDR Stands for Sander, Dennis & Remon
 print("###########################################################################")
@@ -37,6 +38,10 @@ def loadimagefile():
     AskStuf.save("ChecksumLog.txt")
 
     print("---------------------------------------------------------------------------")
+
+    global imagefile
+    global imagetype
+    global imageoffset
 
     imagefile = raw_input("Choose your image file: ")
     imagetype = raw_input("Is your image raw of ewf? ")
@@ -108,6 +113,10 @@ def main():
                 print("Menu 1 has been selected")
             elif choice == '2':
                 print("Menu 2 has been selected")
+                global imagefile
+                global imagetype
+                part_type = raw_input("What is the partition type? (When unsure try DOS) ")
+                oudeopdracht.main(imagefile, imagetype, part_type)
             elif choice == '3':
                 print("Menu 3 has been selected")
                 print("Going back")
