@@ -685,7 +685,14 @@
       <option name="project" value="LOCAL" />
       <updated>1521763135320</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Added email listing">
+      <created>1522426954578</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1522426954578</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -753,7 +760,8 @@
     <MESSAGE value="removed MD5 and SHA1 from Hashes for faster program" />
     <MESSAGE value="Added .eml and .msg readers for listing addresses" />
     <MESSAGE value="Added mbox" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added mbox" />
+    <MESSAGE value="Added email listing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added email listing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

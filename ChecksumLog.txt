@@ -1,0 +1,18 @@
+Name of researcher: 
+Case number: 
+Evidence number: 
+Unique description: 
+Notes: 
+
+File Name: D:\Users\Remon\PycharmProjects\IPFIT5\TestImage\RawImage.dd
+SHA256: 'e857d92fd0075078ca7af42bc1e4700abb230c2dbb507fec5b3b4bb4ec06e298'
+
+Name of researcher: 
+Case number: 
+Evidence number: 
+Unique description: 
+Notes: 
+
+File Name: D:\Users\Remon\PycharmProjects\IPFIT5\TestImage\RawImage.dd
+SHA256: 'e857d92fd0075078ca7af42bc1e4700abb230c2dbb507fec5b3b4bb4ec06e298'
+
