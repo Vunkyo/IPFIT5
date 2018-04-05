@@ -2,7 +2,7 @@ import HashChecksum
 import AskStuf
 import open_evidence
 from Sander import Pcap
-from Remon import oudeopdracht
+from Remon import Opdrachten
 
 # SDR Stands for Sander, Dennis & Remon
 print("###########################################################################")
@@ -116,7 +116,7 @@ def main():
                 global imagefile
                 global imagetype
                 part_type = raw_input("What is the partition type? (When unsure try DOS) ")
-                oudeopdracht.main(imagefile, imagetype, part_type)
+                Opdrachten.main(imagefile, imagetype, part_type)
             elif choice == '3':
                 print("Menu 3 has been selected")
                 print("Going back")

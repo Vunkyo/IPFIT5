@@ -9,6 +9,7 @@ import base64
 
 listadres = []
 listmail = []
+listgraph = []
 
 
 def main(image, image_type, part_type):
@@ -50,6 +51,33 @@ def tabel():
                   ":", item[2].split("\n")[0], " "*(80-len(item[2])),
                   ":", item[3].replace("\n", ""), " "*(80-len(item[3])),
                   ":", item[5], " "*(20-len(str(item[5]))), ":")
+
+
+def graph():
+    templist = []
+    for item in listmail:
+        templist.append(item[1])
+        templist.append(item[2])
+        listgraph.append(templist)
+        templist = []
+
+    output = []
+    seen = set()
+    for value in listgraph:
+        # If value has not been encountered yet,
+        # ... add it to both list and set.
+        if str(value) not in seen:
+            output.append(value)
+            seen.add(str(value))
+
+    for item in output:
+        if ',' not in item[1]:
+            print("{}{}----->{}{}".format(item[0].replace('\n', '\ '),
+                                          (" "*(100-len(item[0].replace('\n', '\ ')))), (" "*20), item[1]))
+        else:
+            print("{}{}----->{}{}".format(item[0].replace('\n', '\ '),
+                                          (" "*(100-len(item[0].replace('\n', '\ ')))),
+                                          (" "*20), item[1].split(",")[0]))
 
 
 # writes date, from, to, subject and attachments to a list
@@ -148,7 +176,7 @@ def print_menu1():
     print("2. Print deleted emails")
     print("3. List all email addresses")
     print("4. Show table with all emails without body")
-    print("5. List all email addresses")
+    print("5. Show a Graph of the Form & To")
     print("6. Exit")
     print(75 * "-")
     print("")
@@ -158,7 +186,7 @@ def menu():
     loop = True
     while loop:  # While loop which will keep going until loop = False
         print_menu1()  # Displays menu
-        choice = raw_input("Enter your choice [1-4]: ")
+        choice = raw_input("Enter your choice [1-6]: ")
         if choice == '1':
             print("Menu 1 has been selected")
             printemail()
@@ -176,7 +204,7 @@ def menu():
             tabel()
         elif choice == '5':
             print("Menu 5 has been selected")
-            print("Work in progress")
+            graph()
         elif choice == '6':
             print("Exit")
             # You can add your code or functions here
