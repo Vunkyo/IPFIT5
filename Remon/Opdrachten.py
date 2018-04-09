@@ -3,6 +3,7 @@ import re
 import extract_file_type
 import os
 import mailbox
+import HashChecksum
 from pprint import pprint
 import itertools
 import base64
@@ -103,6 +104,7 @@ def emails(inputfolder, trashornot):
 def printemail():
     print("there are %s" % len(listmail) + " emails found")
     print("If you put in 0 or a negative number then all emails will be shown ")
+    print("The body will not be shown when you select 0")
     mail = input("which mail do you want to see? ") - 1
     print("")
     if mail < 0:
@@ -114,7 +116,11 @@ def printemail():
             print("From: %s" % item[1])
             print("To: %s" % item[2])
             print("Subject: %s" % item[3])
-            print("Body: \n %s" % item[4])
+            # print("Body: \n %s" % item[4])
+            # This shows the body. but when there are a lot of emails it can get confusing to look at
+            # So the solution is when you want to see all emals they are without body and when you select a mail
+            # The body will be shown and you will get the option to decode base64
+            print("")
             i += 1
     else:
         print("Deleted: %s" % listmail[mail][5])
@@ -149,6 +155,9 @@ def read_mbox_files():
             if filename.endswith(""):  # this was endswith(".mbox") but they dont use that extension
                 fileloc = os.path.join(root, filename)
                 print(fileloc)
+                HashChecksum.hashfile(fileloc)
+                # This hashes all files that are processed.
+
                 find_aders(fileloc)
                 if filename.lower() == "trash":
                     emails(fileloc, True)
