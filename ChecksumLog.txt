@@ -1,3 +1,36 @@
+Current date & time 04/09/18 14:12:06
+File Name:D:\Users\Remon\PycharmProjects\IPFIT5\Sander\test.pcap
+MD5:4f0d676932325b116cd02430e216e405
+SHA1:a6b5575e7deb33782943ad27fcf6778c4b23184c
+SHA256:357241f01610c712e581e79a34c9b8bd879d4a6cdf3dde0c117ad321eff61a01
+
+Name of researcher: remon
+Case number: test
+Evidence number: test
+Unique description: etest
+Notes: test
+
+File Name: D:\Users\Remon\PycharmProjects\IPFIT5\TestImage\RawImage.dd
+SHA256: 'e857d92fd0075078ca7af42bc1e4700abb230c2dbb507fec5b3b4bb4ec06e298'
+
+Name of researcher: Sander
+Case number: 55
+Evidence number: 67
+Unique description: test
+Notes: testje
+
+File Name: D:\Users\Remon\PycharmProjects\IPFIT5\TestImage\Testje.001
+SHA256: 'a9414c407f51884672a243c0b4a6c77cc3861d7b45bf9aa69aa792dd2d8f84a3'
+
+Name of researcher: 
+Case number: 
+Evidence number: 
+Unique description: 
+Notes: 
+
+File Name: D:\Users\Remon\PycharmProjects\IPFIT5\TestImage\testDennis.dd
+SHA256: 'e2d0e59fa0f364f45387f51d15c2f1c93a0ef47abd6ec1829afab087bca7ba2f'
+
 Name of researcher: 
 Case number: 
 Evidence number: 
@@ -7,18 +40,21 @@ Notes:
 File Name: D:\Users\Remon\PycharmProjects\IPFIT5\TestImage\RawImage.dd
 SHA256: 'e857d92fd0075078ca7af42bc1e4700abb230c2dbb507fec5b3b4bb4ec06e298'
 
-File Name: ..\Extracted\Sent Items
-SHA256: 'dc7f8a5180d56e7a785d5d78e51b63949f0e798b3e6ca069933b3202e7ac9f52'
+Name of researcher: 
+Case number: 
+Evidence number: 
+Unique description: 
+Notes: 
 
-File Name: ..\Extracted\Trash
-SHA256: '255fd6721343382afc08e52a8a41e97526992eb73f8c2f24642ab55e00dad3d8'
+File Name: D:\Users\Remon\PycharmProjects\IPFIT5\TestImage\RawImage.dd
+SHA256: 'e857d92fd0075078ca7af42bc1e4700abb230c2dbb507fec5b3b4bb4ec06e298'
 
-File Name: ..\Extracted\mails\INBOX
-SHA256: '8d1645911d4d0396d5674326b21a4af149059f707f3fd18a958e7c6c514a139b'
+Name of researcher: 
+Case number: 
+Evidence number: 
+Unique description: 
+Notes: 
 
-File Name: ..\Extracted\mails\Sent Items
-SHA256: 'dc7f8a5180d56e7a785d5d78e51b63949f0e798b3e6ca069933b3202e7ac9f52'
-
-File Name: ..\Extracted\mails\Trash
-SHA256: '280360ae955d81313e84923780a762d0e133158da031b93c02654b2c88a11cab'
+File Name: D:\Users\Remon\PycharmProjects\IPFIT5\TestImage\testDennis.dd
+SHA256: 'e2d0e59fa0f364f45387f51d15c2f1c93a0ef47abd6ec1829afab087bca7ba2f'
 

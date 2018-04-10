@@ -1,13 +1,16 @@
 from __future__ import print_function
 import exifread
 import os
+import extract_file_type
 
 
 fotolist = []
 cameralist = []
 
-def main():
-    for root, dirs, files in os.walk('C:/Test/'):
+
+def main(image, image_type, part_type):
+    extract_file_type.main(image, image_type, "jpg", "../Extracted/foto", part_type)
+    for root, dirs, files in os.walk('../Extracted/foto'):
         for filename in files:
             fileloc = os.path.join(root, filename)
             if filename.endswith('.jpg'):

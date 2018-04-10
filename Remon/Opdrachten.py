@@ -15,7 +15,7 @@ listgraph = []
 
 
 def main(image, image_type, part_type):
-    extract_file_type.main(image, image_type, "inbox, trash, sent items", "../Extracted", part_type)
+    extract_file_type.main(image, image_type, "inbox, trash, sent items", "../Extracted/mail", part_type)
 
     try:
         read_mbox_files()
@@ -150,7 +150,7 @@ def find_aders(fileloc):
 
 # reads .mbox files and then searches for email addresses
 def read_mbox_files():
-    for root, dirs, files in os.walk("..\Extracted"):
+    for root, dirs, files in os.walk("..\Extracted\mail"):
         for filename in files:
             if filename.endswith(""):  # this was endswith(".mbox") but they dont use that extension
                 fileloc = os.path.join(root, filename)

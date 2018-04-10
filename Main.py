@@ -3,6 +3,7 @@ import AskStuf
 import open_evidence
 from Sander import Pcap
 from Remon import Opdrachten
+from Dennis import test
 
 # SDR Stands for Sander, Dennis & Remon
 print("###########################################################################")
@@ -111,10 +112,12 @@ def main():
             choice = raw_input("Enter your choice [1-4]: ")
             if choice == '1':
                 print("Menu 1 has been selected")
-            elif choice == '2':
-                print("Menu 2 has been selected")
                 global imagefile
                 global imagetype
+                part_type = raw_input("What is the partition type? (When unsure try DOS) ")
+                test.main(imagefile, imagetype, part_type)
+            elif choice == '2':
+                print("Menu 2 has been selected")
                 part_type = raw_input("What is the partition type? (When unsure try DOS) ")
                 Opdrachten.main(imagefile, imagetype, part_type)
             elif choice == '3':

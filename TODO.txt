@@ -1,0 +1,11 @@
+[ ] Logging Dennis
+[ ] Logging Remon
+[ ] Dennis hashes
+[ ] Dennis Database
+[ ] Dennis menu / main
+[ ] Database uitlezen (via python of db browser)
+[ ] Test situaties
+[ ] documentaties
+[ ] VM
+[ ] Remon Graaf
+[X] Dennis' script intergreren met main
