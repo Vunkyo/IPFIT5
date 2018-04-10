@@ -1,4 +1,5 @@
 import hashlib
+import sqlite3
 
 
 def hashfile(inputfile):
@@ -22,6 +23,14 @@ def hashfile(inputfile):
             myfile.write("File Name: %s" % inputfile + "\n")
             myfile.write("SHA256: %r" % checksumsha256 + "\n")
             myfile.write("\n")
+
+        conn = sqlite3.connect("Hash.db")
+        c = conn.cursor()
+        # Make table with 3 columns: File, MD5 and SHA256
+        c.execute("CREATE TABLE IF NOT EXISTS Hash(File TEXT, SHA256 TEXT)")
+        c.execute('INSERT INTO Hash VALUES(?,?)', (inputfile, checksumsha256))
+        conn.commit()
+
     except IOError:
         print("There is no such file")
 

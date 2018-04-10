@@ -7,6 +7,7 @@ import HashChecksum
 from pprint import pprint
 import itertools
 import base64
+import sqlite3
 
 listadres = []
 listmail = []
@@ -86,6 +87,7 @@ def graph():
 def emails(inputfolder, trashornot):
     mbox = mailbox.mbox(inputfolder)
     templist = []
+    templist2 = []
     for message in mbox:
         templist.append(message['Date'])
         templist.append(message['From'])
@@ -94,7 +96,12 @@ def emails(inputfolder, trashornot):
         else:
             templist.append(message['To'])
         templist.append(message['subject'])
-        templist.append(message.get_payload())  # if you say message.get_payload(decode=True) it gets decode beforehand
+        if message.is_multipart():
+            for part in message.get_payload():
+                templist2.append(part.get_payload(decode=True))
+            templist.append(templist2)
+        else:
+            templist.append(message.get_payload(decode=True))
         templist.append(trashornot)
         listmail.append(templist)
         templist = []
@@ -119,7 +126,7 @@ def printemail():
             # print("Body: \n %s" % item[4])
             # This shows the body. but when there are a lot of emails it can get confusing to look at
             # So the solution is when you want to see all emals they are without body and when you select a mail
-            # The body will be shown and you will get the option to decode base64
+            # The body will be shown
             print("")
             i += 1
     else:
@@ -129,13 +136,6 @@ def printemail():
         print("To: %s" % listmail[mail][2])
         print("Subject: %s" % listmail[mail][3])
         print("Body: \n %s" % listmail[mail][4])
-
-        choice = raw_input("Do you want to decode base64? Y/n ")
-        try:
-            if choice == "Y":
-                print(base64.b64decode(listmail[mail][4]))
-        except TypeError:
-            print("Oops it failed")
 
 
 # Locates email addresses in text files
@@ -178,6 +178,29 @@ def show_del_mails():
         i += 1
 
 
+def listtodb():
+    # try:
+        conn = sqlite3.connect("Mail.db")
+        conn.text_factory = str
+        c = conn.cursor()
+        # Make table with 1 column:
+        c.execute("CREATE TABLE IF NOT EXISTS Addresses(Addres TEXT)")
+        for item in listadres:
+            c.execute('INSERT INTO Addresses VALUES(?)', (item,))
+
+        c.execute("CREATE TABLE IF NOT EXISTS Emails('Datum' TEXT, 'From' TEXT, 'To' TEXT,"
+                  " 'Subject' TEXT, 'Body' TEXT, 'Deleted' TEXT)")
+        for item in listmail:
+            c.execute('INSERT INTO Emails VALUES(?,?,?,?,?,?)', (item[0],
+                                                                 item[1],
+                                                                 item[2],
+                                                                 item[3],
+                                                                 str(item[4]),
+                                                                 str(item[5])))
+        conn.commit()
+    # except(sqlite3.OperationalError):
+    #     print("Couldn't append to Database")
+
 def print_menu1():
     print("")
     print(34 * "-", "MENU", 34 * "-")
@@ -186,7 +209,8 @@ def print_menu1():
     print("3. List all email addresses")
     print("4. Show table with all emails without body")
     print("5. Show a Graph of the Form & To")
-    print("6. Exit")
+    print("6. Write to lists Database")
+    print("7. Exit")
     print(75 * "-")
     print("")
 
@@ -195,7 +219,7 @@ def menu():
     loop = True
     while loop:  # While loop which will keep going until loop = False
         print_menu1()  # Displays menu
-        choice = raw_input("Enter your choice [1-6]: ")
+        choice = raw_input("Enter your choice [1-7]: ")
         if choice == '1':
             print("Menu 1 has been selected")
             printemail()
@@ -215,6 +239,10 @@ def menu():
             print("Menu 5 has been selected")
             graph()
         elif choice == '6':
+            print("Menu 6 has been selected")
+            Choice = raw_input("Do you want to drop the previous email table? ")
+            listtodb()
+        elif choice == '7':
             print("Exit")
             # You can add your code or functions here
             loop = False  # This will make the while loop to end as not value of loop is set to False
