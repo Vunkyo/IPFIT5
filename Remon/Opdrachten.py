@@ -225,5 +225,6 @@ def menu():
 
 if __name__ == '__main__':
     main('..\TestImage\RawImage.dd', 'raw', 'DOS')
+    # Just for testing. will be user input if run from main.py
 
 
