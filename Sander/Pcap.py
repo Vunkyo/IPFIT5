@@ -9,19 +9,22 @@ import re
 import sqlite3
 import pandas as pd
 import warnings
+import time
 
-#Transform a int ip address to a human readable ip address (ipv4)
+
+# Transform a int ip address to a human readable ip address (ipv4)
 def ip_to_str(address):
     return socket.inet_ntoa(address)
 
-#Function to Hash the context of the PCAP file
+
+# Function to Hash the context of the PCAP file
 def hashfile(inputfile):
     read_size = 1024  # =You can make this bigger
-    checksummd5 = hashlib.md5() #MD5
-    checksumsha1 = hashlib.sha1() #SHA1
-    checksumsha256 = hashlib.sha256() #SHA256
+    checksummd5 = hashlib.md5()  # MD5
+    checksumsha1 = hashlib.sha1()  # SHA1
+    checksumsha256 = hashlib.sha256()  # SHA256
 
-    #Opens the file and hash the context
+    # Opens the file and hash the context
     with open(inputfile, 'rb') as f:
         data = f.read(read_size)
         while data:
@@ -33,18 +36,21 @@ def hashfile(inputfile):
     checksumsha1 = checksumsha1.hexdigest()
     checksumsha256 = checksumsha256.hexdigest()
 
-    #Put the hashes from the PCAP files in the database called PCAP.db
-    print("Put the Hashes in the database...")
+    # Put the hashes from the PCAP files in the database called PCAP.db
+    print("Putting the Hashes in the database...")
     conn = sqlite3.connect("PCAP.db")
     c = conn.cursor()
-    #Make table with 3 columns: File, MD5 and SHA256
+    # Make table with 3 columns: File, MD5 and SHA256
     c.execute("CREATE TABLE IF NOT EXISTS Hash(File TEXT, MD5 TEXT, SHA1 TEXT, SHA256 TEXT)")
     c.execute('INSERT INTO Hash VALUES(?,?,?,?)', (inputfile, checksummd5, checksumsha1, checksumsha256))
     conn.commit()
     print("Done!")
 
+    with open("Log.txt", "a") as myfile:
+        myfile.write("Creating table Hash for PCAP.db finished" + "\n")
 
-#Clear the database tables that were created by this program
+
+# Clear the database tables that were created by this program
 def clearfile():
     print("")
     print("Claering Database")
@@ -58,40 +64,41 @@ def clearfile():
     print("")
 
 
-#Read the PCAP file and shows the information in the Terminal
+# Read the PCAP file and shows the information in the Terminal
 def compute(cap_file, test_file):
-    SourceList = []
-    DestinationList = []
 
-    TimeLineList1 = []
-    TimeLineList2 = []
-    TimeLineList3 = []
-    TimeLineList4 = []
+    sourcelist = []
+    destinationlist = []
+    timelinelist1 = []
+    timelinelist2 = []
+    timelinelist3 = []
+    timelinelist4 = []
+    dnslist = []
+    whoislist = []
+    compare = []
 
-    DnsList = []
-    WhoIsList = []
     # Put the ip adresses of test.txt in a list called testIps
     with open(test_file, 'r') as f:
-        testIps = [line.strip() for line in f]
+        testips = [line.strip() for line in f]
 
-    for item in testIps:
+    for item in testips:
         if re.match("^(?:10|127|172\.(?:1[6-9]|2[0-9]|3[01])|192\.168)\..*", item):
-            DnsCorrect = "Is een private IP Address"
-            DnsCorrect2 = "Geen DNS info"
+            ipwhois = "Is een private IP Address"
+            dnscorrect = "Geen DNS info"
         else:
             with warnings.catch_warnings():
                 warnings.filterwarnings("ignore", category=UserWarning)
                 obj = IPWhois(item)  # Enter IP
-                DNS = obj.lookup_whois()
-                DnsCorrect = DNS['nets'][0]['name']
-                DnsCorrect2 = DNS['nets'][0]['country']
-        WhoIsList.append(DnsCorrect)
-        DnsList.append(DnsCorrect2)
+                dns = obj.lookup_whois()
+                ipwhois = dns['nets'][0]['name']
+                dnscorrect = dns['nets'][0]['country']
+        whoislist.append(ipwhois)
+        dnslist.append(dnscorrect)
 
-    #Opens the pcap file with rb that stands for bytes read
+    # Opens the pcap file with rb that stands for bytes read
     with open(cap_file, 'rb') as f:
-        
-        #Special PCAP reader from the dpkt library
+
+        # Special PCAP reader from the dpkt library
         pcap = dpkt.pcap.Reader(f)
 
         for timestamp, buf in pcap:
@@ -99,139 +106,165 @@ def compute(cap_file, test_file):
             if eth.type == dpkt.ethernet.ETH_TYPE_IP:
                 ip = eth.data
 
-                #src are the ip adresses of the source 
-                src=ip_to_str(ip.src)
-                #dst are the ip adresses of the destination
-                dst=ip_to_str(ip.dst)
-                #protocol is the number of protocol that can be: 1, 6, 17, 58 or 132
-                protocol=ip.p
+                # src are the ip adresses of the source
+                src = ip_to_str(ip.src)
+                # dst are the ip adresses of the destination
+                dst = ip_to_str(ip.dst)
+                # protocol is the number of protocol that can be: 1, 6, 17, 58 or 132
+                protocol = ip.p
 
-                #Protocol 1 stands for ICMP
+                # Protocol 1 stands for ICMP
                 if protocol == 1:
-                    protocolCorrect = "ICMP"
-                #Protocol 6 stands for TCP
+                    protocolcorrect = "ICMP"
+                # Protocol 6 stands for TCP
                 if protocol == 6:
-                    protocolCorrect = "TCP"
-                #Protocol 17, 58 and 132 stands for UDP
+                    protocolcorrect = "TCP"
+                # Protocol 17, 58 and 132 stands for UDP
                 if protocol == 17 or protocol == 58 or protocol == 132:
-                    protocolCorrect = "UDP"
+                    protocolcorrect = "UDP"
 
-                #Put the exact date time of the ip adress
+                # Put the exact date time of the ip adress
                 date_time = str(datetime.datetime.utcfromtimestamp(timestamp))
 
-                SourceList.append(src)
-                DestinationList.append(dst)
+                sourcelist.append(src)
+                destinationlist.append(dst)
 
-                if src in testIps:
-                    TimeLineList1.append(date_time)
-                    TimeLineList2.append(src)
-                    TimeLineList3.append(dst)
-                    TimeLineList4.append(protocolCorrect)
+                if src in testips:
+                    timelinelist1.append(date_time)
+                    compare.append(src)
+                    timelinelist2.append(src)
+                    timelinelist3.append(dst)
+                    timelinelist4.append(protocolcorrect)
 
-                if dst in testIps:
-                    TimeLineList1.append(date_time)
-                    TimeLineList2.append(src)
-                    TimeLineList3.append(dst)
-                    TimeLineList4.append(protocolCorrect)
+                if dst in testips:
+                    timelinelist1.append(date_time)
+                    compare.append(dst)
+                    timelinelist2.append(src)
+                    timelinelist3.append(dst)
+                    timelinelist4.append(protocolcorrect)
 
-        print("Put all IP's in the database...")
+        print("Putting all IP's in the database...")
         conn = sqlite3.connect("PCAP.db")
         c = conn.cursor()
         c.execute("CREATE TABLE IF NOT EXISTS Ips(Source TEXT, Destination TEXT)")
-        for i in range(len(SourceList)):
-            I = SourceList[i]
-            II = DestinationList[i]
-            c.execute('INSERT INTO Ips VALUES(?,?)', (I, II))
+        for i in range(len(sourcelist)):
+            source = sourcelist[i]
+            destination = destinationlist[i]
+            c.execute('INSERT INTO Ips VALUES(?,?)', (source, destination))
             conn.commit()
         print("Done!")
+        with open("Log.txt", "a") as myfile:
+            myfile.write("Creating table Ips for PCAP.db finished" + "\n")
 
-        #Make a list called output that compares the ip adresses with the list called testIps
+        # Make a list called output that compares the ip adresses with the list called testIps
         output = []
         seen = set()
-        for value in testIps:
+        for value in compare:
             if value not in seen:
                 output.append(value)
                 seen.add(value)
 
-        #Make a list called new with the variables of the list called output
+        # Make a list called new with the variables of the list called output
         new = []
         for item in output:
-            if item in testIps:
+            if item in compare:
                 new.append(item)
 
-        print("Put the compared IP's in the database...")
+        print("Putting the compared IP's in the database...")
         conn = sqlite3.connect("PCAP.db")
         c = conn.cursor()
-        c.execute("CREATE TABLE IF NOT EXISTS Compare(TestBestand TEXT, PcapBestand TEXT, WHOIS TEXT, DNS TEXT)")
-        for i in range(len(testIps)):
-            I = testIps[i]
-            II = new[i]
-            III = WhoIsList[i]
-            IIII = DnsList[i]
-            c.execute('INSERT INTO Compare VALUES(?,?,?,?)', (I, II, III, IIII))
+        c.execute("CREATE TABLE IF NOT EXISTS Compare(TestfileTEXT, Pcapfile TEXT, WHOIS TEXT, DNS TEXT)")
+        for i in range(len(new)):
+            textfile_column = testips[i]
+            pcapfile_column = new[i]
+            whois_column = whoislist[i]
+            dns_column = dnslist[i]
+            c.execute('INSERT INTO Compare VALUES(?,?,?,?)', (textfile_column, pcapfile_column, whois_column,
+                                                              dns_column))
             conn.commit()
         print("Done!")
+        with open("Log.txt", "a") as myfile:
+            myfile.write("Creating table Compare for PCAP.db finished" + "\n")
 
-        print("Put the TimeLine in the database...")
+        print("Putting the TimeLine in the database...")
         conn = sqlite3.connect("PCAP.db")
         c = conn.cursor()
         c.execute("CREATE TABLE IF NOT EXISTS TimeLine(DateTime TEXT, Source TEXT, Destination TEXT, Protocol TEXT)")
-        for i in range(len(TimeLineList1)):
-            I = TimeLineList1[i]
-            II = TimeLineList2[i]
-            III = TimeLineList3[i]
-            IIII = TimeLineList4[i]
-            c.execute('INSERT INTO TimeLine VALUES(?,?,?,?)', (I, II, III, IIII))
+        for i in range(len(timelinelist1)):
+            datetime_column = timelinelist1[i]
+            source_column = timelinelist2[i]
+            destination_column = timelinelist3[i]
+            protocol_column = timelinelist4[i]
+            c.execute('INSERT INTO TimeLine VALUES(?,?,?,?)', (datetime_column, source_column, destination_column,
+                                                               protocol_column))
             conn.commit()
         print("Done!")
+        with open("Log.txt", "a") as myfile:
+            myfile.write("Creating table TimeLine for PCAP.db finished" + "\n")
 
-#Starts the terminal interface
+
+# Starts the terminal interface
 def start():
     conn = sqlite3.connect("PCAP.db")
     answer = "Y"
 
     while answer == "Y":
         loop3 = True
-        answer = input("Do you want to analyse a Pcap file? Y/N ")
+        answer = raw_input("Do you want to analyse a Pcap file? Y/N ")
         if answer == "Y":
-            
-            answer2 = input("Do you want to delete the information of the old database? Y/N ")
+            answer2 = raw_input("Do you want to delete the information of the old database? Y/N ")
             if answer2 == "Y":
+                with open("Log.txt", "a") as myfile:
+                    myfile.write("Current date & time " + time.strftime("%c") + "\n")
+                    myfile.write("PCAP function" + "\n")
+                    myfile.write("Deleted context of old database" + "\n")
                 clearfile()
-            
-            inputFile = input("Enter the path of the PCAP-file:")
-            filename = inputFile
+
+            inputfile = raw_input("Enter the path of the PCAP-file:")
+            filename = inputfile
+            with open("Log.txt", "a") as myfile:
+                myfile.write("Analyse PCAP  called: " + filename + "\n")
 
             if os.path.exists(filename) and filename.endswith(".pcap"):
-                inputFile2 = input("Enter the path of the test.txt file:")
-                filename2 = inputFile2
+                inputfile2 = raw_input("Enter the path of the test.txt file:")
+                filename2 = inputfile2
+                with open("Log.txt", "a") as myfile:
+                    myfile.write("Compare PCAP file with txt file called : " + filename2 + "\n")
                 if os.path.exists(filename2) and filename2.endswith(".txt"):
-                        hashfile(filename)
-                        compute(filename, filename2)
+                    hashfile(filename)
+                    compute(filename, filename2)
                 # If file doesn't exist or is not a .txt file give the following error
                 else:
                     print("This file doesn't exist! or is not a .txt file")
                     loop3 = False
-            #If file doesn't exist or is not a .pcap file give the following error
+            # If file doesn't exist or is not a .pcap file give the following error
             else:
                 print("This file doesn't exist! or is not a .pcap file")
                 loop3 = False
 
             while loop3 == True:
                 print("")
-                answer3 = input ("1: Show Hashes from the PCAP-Files" + "\n" +
-                                 "2: Show all IP-addresses from the PCAP-Files" + "\n" +
-                                 "3: Show the compared IP-addresses from the PCAP-Files" + "\n" +
-                                 "4: Show the Time line from the PCAP-Files" + "\n" +
-                                 "5: Go to main menu" + "\n")
+                answer3 = raw_input("1: Show Hashes from the PCAP-Files" + "\n" +
+                                "2: Show all IP-addresses from the PCAP-Files" + "\n" +
+                                "3: Show the compared IP-addresses from the PCAP-Files" + "\n" +
+                                "4: Show the Time line from the PCAP-Files" + "\n" +
+                                "5: Go to main menu" + "\n")
                 if answer3 == "1":
                     print(pd.read_sql_query("SELECT * FROM Hash", conn))
+                    with open("Log.txt", "a") as myfile:
+                        myfile.write("Showed hashes from the PCAP file " + "\n")
                 if answer3 == "2":
                     print(pd.read_sql_query("SELECT * FROM Ips", conn))
+                    with open("Log.txt", "a") as myfile:
+                        myfile.write("Showed all ip addresses from the PCAP file " + "\n")
                 if answer3 == "3":
                     print(pd.read_sql_query("SELECT * FROM Compare", conn))
+                    with open("Log.txt", "a") as myfile:
+                        myfile.write("Showed all compared ip addresses from the PCAP file " + "\n")
                 if answer3 == "4":
                     print(pd.read_sql_query("SELECT * FROM TimeLine", conn))
+                    with open("Log.txt", "a") as myfile:
+                        myfile.write("Showed the timeline from the PCAP file " + "\n")
                 if answer3 == "5":
                     loop3 = False
                 if answer3 != "1" and answer3 != "2" and answer3 != "3" and answer3 != "4" and answer3 != "5":
@@ -239,7 +272,11 @@ def start():
 
         else:
             print("Stopping program...")
+            with open("Log.txt", "a") as myfile:
+                myfile.write("PCAP reseaerch done at " + time.strftime("%c") + "\n")
+                myfile.write("\n")
             exit()
+
 
 if __name__ == '__main__':
     pd.set_option('display.height', 2000)
