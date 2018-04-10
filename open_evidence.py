@@ -50,39 +50,42 @@ class EWFImgInfo(pytsk3.Img_Info):
 
 
 def main(image, img_type, offset):
-    print("[+] Opening {}".format(image))
-    if img_type == "ewf":
+    try:
+        print("[+] Opening {}".format(image))
+        if img_type == "ewf":
+            try:
+                filenames = pyewf.glob(image)
+            except IOError:
+                _, e, _ = sys.exc_info()
+                print("[-] Invalid EWF format:\n {}".format(e))
+                sys.exit(2)
+            ewf_handle = pyewf.handle()
+            ewf_handle.open(filenames)
+            # Open PYTSK3 handle on EWF Image
+            img_info = EWFImgInfo(ewf_handle)
+        else:
+            img_info = pytsk3.Img_Info(image)
+
+        # Get Filesystem Handle
         try:
-            filenames = pyewf.glob(image)
+            fs = pytsk3.FS_Info(img_info, offset)
         except IOError:
             _, e, _ = sys.exc_info()
-            print("[-] Invalid EWF format:\n {}".format(e))
-            sys.exit(2)
-        ewf_handle = pyewf.handle()
-        ewf_handle.open(filenames)
-        # Open PYTSK3 handle on EWF Image
-        img_info = EWFImgInfo(ewf_handle)
-    else:
-        img_info = pytsk3.Img_Info(image)
+            print("[-] Unable to open FS:\n {}".format(e))
+            exit()
 
-    # Get Filesystem Handle
-    try:
-        fs = pytsk3.FS_Info(img_info, offset)
+        root_dir = fs.open_dir(path="/")
+        table = [["Name", "Type", "Size", "Create Date", "Modify Date"]]
+        for f in root_dir:
+            name = f.info.name.name
+            if f.info.meta.type == pytsk3.TSK_FS_META_TYPE_DIR:
+                f_type = "DIR"
+            else:
+                f_type = "FILE"
+            size = f.info.meta.size
+            create = f.info.meta.crtime
+            modify = f.info.meta.mtime
+            table.append([name, f_type, size, create, modify])
+        print(tabulate(table, headers="firstrow"))
     except IOError:
-        _, e, _ = sys.exc_info()
-        print("[-] Unable to open FS:\n {}".format(e))
-        exit()
-
-    root_dir = fs.open_dir(path="/")
-    table = [["Name", "Type", "Size", "Create Date", "Modify Date"]]
-    for f in root_dir:
-        name = f.info.name.name
-        if f.info.meta.type == pytsk3.TSK_FS_META_TYPE_DIR:
-            f_type = "DIR"
-        else:
-            f_type = "FILE"
-        size = f.info.meta.size
-        create = f.info.meta.crtime
-        modify = f.info.meta.mtime
-        table.append([name, f_type, size, create, modify])
-    print(tabulate(table, headers="firstrow"))
+        print("No such file1")

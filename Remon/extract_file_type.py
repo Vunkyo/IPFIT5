@@ -119,7 +119,9 @@ def recurse_files(part, fs, root_dir, dirs, parent, ext, output):
             except AttributeError:
                 continue
 
-            if file_ext.strip() in extensions:
+            # changed this form file_ext.strip() to file_name so it checks it with the filename.
+            # this is becasue the filetype i want doesnt have a extension
+            if file_name.strip().lower() in extensions:
                 print("{}".format(file_path))
                 file_writer(fs_object, file_name, file_ext, file_path,
                             output)
