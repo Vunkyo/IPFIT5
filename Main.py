@@ -3,7 +3,7 @@ import HashChecksum
 import AskStuf
 import open_evidence
 from Sander import Pcap
-from Remon import Opdrachten
+from Remon import Mail
 from Dennis import test
 
 # SDR Stands for Sander, Dennis & Remon
@@ -120,7 +120,7 @@ def main():
             elif choice == '2':
                 print("Menu 2 has been selected")
                 part_type = raw_input("What is the partition type? (When unsure try DOS) ")
-                Opdrachten.main(imagefile, imagetype, part_type)
+                Mail.main(imagefile, imagetype, part_type)
             elif choice == '3':
                 print("Menu 3 has been selected")
                 print("Going back")
