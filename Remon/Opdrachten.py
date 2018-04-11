@@ -179,27 +179,25 @@ def show_del_mails():
 
 
 def listtodb():
-    # try:
-        conn = sqlite3.connect("Mail.db")
-        conn.text_factory = str
-        c = conn.cursor()
-        # Make table with 1 column:
-        c.execute("CREATE TABLE IF NOT EXISTS Addresses(Addres TEXT)")
-        for item in listadres:
-            c.execute('INSERT INTO Addresses VALUES(?)', (item,))
+    conn = sqlite3.connect("Mail.db")
+    conn.text_factory = str
+    c = conn.cursor()
+    # Make table with 1 column:
+    c.execute("CREATE TABLE IF NOT EXISTS Addresses(Addres TEXT)")
+    for item in listadres:
+        c.execute('INSERT INTO Addresses VALUES(?)', (item,))
 
-        c.execute("CREATE TABLE IF NOT EXISTS Emails('Datum' TEXT, 'From' TEXT, 'To' TEXT,"
-                  " 'Subject' TEXT, 'Body' TEXT, 'Deleted' TEXT)")
-        for item in listmail:
-            c.execute('INSERT INTO Emails VALUES(?,?,?,?,?,?)', (item[0],
-                                                                 item[1],
-                                                                 item[2],
-                                                                 item[3],
-                                                                 str(item[4]),
-                                                                 str(item[5])))
-        conn.commit()
-    # except(sqlite3.OperationalError):
-    #     print("Couldn't append to Database")
+    c.execute("CREATE TABLE IF NOT EXISTS Emails('Datum' TEXT, 'From' TEXT, 'To' TEXT,"
+              " 'Subject' TEXT, 'Body' TEXT, 'Deleted' TEXT)")
+    for item in listmail:
+        c.execute('INSERT INTO Emails VALUES(?,?,?,?,?,?)', (item[0],
+                                                              item[1],
+                                                              item[2],
+                                                              item[3],
+                                                              str(item[4]),
+                                                              str(item[5])))
+    conn.commit()
+    print("Added to Database")
 
 
 def print_menu1():
@@ -247,6 +245,7 @@ def menu():
                 c = conn.cursor()
                 c.execute("DROP TABLE IF EXISTS Emails")
                 c.execute('DROP TABLE IF EXISTS Addresses')
+                print("Dropped tables")
                 listtodb()
             elif yesorno.lower() == "n":
                 listtodb()

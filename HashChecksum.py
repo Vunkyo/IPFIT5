@@ -19,11 +19,6 @@ def hashfile(inputfile):
         print("SHA256: %r" % checksumsha256)
         print("")
 
-        with open("ChecksumLog.txt", "a") as myfile:  # This writes the hashes to a file
-            myfile.write("File Name: %s" % inputfile + "\n")
-            myfile.write("SHA256: %r" % checksumsha256 + "\n")
-            myfile.write("\n")
-
         conn = sqlite3.connect("Hash.db")
         c = conn.cursor()
         # Make table with 3 columns: File, MD5 and SHA256
@@ -36,6 +31,7 @@ def hashfile(inputfile):
 
 
 def clearfile():  # Clear the log file
-    open("ChecksumLog.txt", 'w').close()
-    print("")
-    print("Log file cleared")
+    conn = sqlite3.connect("Mail.db")
+    c = conn.cursor()
+    c.execute("DROP TABLE IF EXISTS Hash")
+    conn.commit()
