@@ -4,9 +4,6 @@ import extract_file_type
 import os
 import mailbox
 import HashChecksum
-from pprint import pprint
-import itertools
-import base64
 import sqlite3
 from graphviz import Digraph
 
@@ -244,14 +241,14 @@ def menu():
             graph()
         elif choice == '6':
             print("Menu 6 has been selected")
-            choice = raw_input("Do you want to drop the previous email table? (Y/n) ")
-            if choice == "Y":
+            yesorno = raw_input("Do you want to drop the previous email table? (Y/n) ")
+            if yesorno.lower() == "y":
                 conn = sqlite3.connect("Mail.db")
                 c = conn.cursor()
                 c.execute("DROP TABLE IF EXISTS Emails")
-                c.execute("DROP TABLE IF EXISTS Addresses")
+                c.execute('DROP TABLE IF EXISTS Addresses')
                 listtodb()
-            elif choice == "n":
+            elif yesorno.lower() == "n":
                 listtodb()
             else:
                 print("Invalid entry")

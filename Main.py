@@ -1,3 +1,4 @@
+from __future__ import print_function
 import HashChecksum
 import AskStuf
 import open_evidence
@@ -65,7 +66,7 @@ def print_menu1():
     print("----------------------------------- MENU ----------------------------------- ")
     print("1. Load Image file")
     print("2. Load PCAP file")
-    print("3. Clear Hash Log")
+    print("3. Clear Hash.db")
     print("4. Exit")
     print(75 * "-")
     print("")
