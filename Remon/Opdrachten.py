@@ -8,6 +8,7 @@ from pprint import pprint
 import itertools
 import base64
 import sqlite3
+from graphviz import Digraph
 
 listadres = []
 listmail = []
@@ -72,14 +73,16 @@ def graph():
             output.append(value)
             seen.add(str(value))
 
+    g = Digraph('unix', filename='unix.gv')
+    g.attr(size='6,6')
+    g.node_attr.update(color='lightblue2', style='filled')
+
     for item in output:
-        if ',' not in item[1]:
-            print("{}{}----->{}{}".format(item[0].replace('\n', '\ '),
-                                          (" "*(100-len(item[0].replace('\n', '\ ')))), (" "*20), item[1]))
-        else:
-            print("{}{}----->{}{}".format(item[0].replace('\n', '\ '),
-                                          (" "*(100-len(item[0].replace('\n', '\ ')))),
-                                          (" "*20), item[1].split(",")[0]))
+        g.edge(item[0], item[1])
+    try:
+        g.view()
+    except:
+        print("Graphviz is not installed on the system or is not in the systems PATH")
 
 
 # writes date, from, to, subject and attachments to a list
@@ -201,6 +204,7 @@ def listtodb():
     # except(sqlite3.OperationalError):
     #     print("Couldn't append to Database")
 
+
 def print_menu1():
     print("")
     print(34 * "-", "MENU", 34 * "-")
@@ -240,8 +244,17 @@ def menu():
             graph()
         elif choice == '6':
             print("Menu 6 has been selected")
-            Choice = raw_input("Do you want to drop the previous email table? ")
-            listtodb()
+            choice = raw_input("Do you want to drop the previous email table? (Y/n) ")
+            if choice == "Y":
+                conn = sqlite3.connect("Mail.db")
+                c = conn.cursor()
+                c.execute("DROP TABLE IF EXISTS Emails")
+                c.execute("DROP TABLE IF EXISTS Addresses")
+                listtodb()
+            elif choice == "n":
+                listtodb()
+            else:
+                print("Invalid entry")
         elif choice == '7':
             print("Exit")
             # You can add your code or functions here
