@@ -31,7 +31,7 @@ def hashfile(inputfile):
 
 
 def clearfile():  # Clear the log file
-    conn = sqlite3.connect("Mail.db")
+    conn = sqlite3.connect("Hash.db")
     c = conn.cursor()
     c.execute("DROP TABLE IF EXISTS Hash")
     conn.commit()
