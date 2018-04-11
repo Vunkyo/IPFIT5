@@ -246,14 +246,15 @@ def listtodb():
     c.execute("CREATE TABLE IF NOT EXISTS Emails('Datum' TEXT, 'From' TEXT, 'To' TEXT,"
               " 'Subject' TEXT, 'Body' TEXT, 'Deleted' TEXT)")
 
-    Process(target=table2(c)).start()
-    Process(target=table1(c)).start()
+    Process(target=table2(c)).start()  # runs this line alogside the one below it
+    Process(target=table1(c)).start()  # runs this line alogside the one above it
 
-    if (loop1 is True) and (loop2 is True):
+    if (loop1 is True) and (loop2 is True):  # if both loop1 and loop2 are done contineu the script
         conn.commit()
         print("Added to Database")
 
 
+# def that prints the menu options
 def print_menu1():
     print("")
     print(34 * "-", "MENU", 34 * "-")
@@ -268,6 +269,7 @@ def print_menu1():
     print("")
 
 
+# runs the menu
 def menu():
     loop = True
     while loop:  # While loop which will keep going until loop = False
@@ -283,7 +285,7 @@ def menu():
             print("Menu 3 has been selected")
             i = 1
             for item in listadres:
-                print("{}. {}".format(i, item))
+                print("{}. {}".format(i, item))  # prints the list with numbers in front of it
                 i += 1
         elif choice == '4':
             print("Menu 4 has been selected")
@@ -295,14 +297,14 @@ def menu():
             print("Done")
         elif choice == '6':
             print("Menu 6 has been selected")
-            yesorno = raw_input("Do you want to drop the previous email table? (Y/n) ")
-            if yesorno.lower() == "y":
+            yesorno = raw_input("Do you want to drop the previous email table? (Y/n) ")  # gives the option
+            if yesorno.lower() == "y":                                                   # to drop tables
                 print("Dropping tables")
                 conn = sqlite3.connect("Mail.db")
                 c = conn.cursor()
-                c.execute("DROP TABLE IF EXISTS Emails")
+                c.execute("DROP TABLE IF EXISTS Emails")     # drops table emails
                 print("Dropped table Emails")
-                c.execute("DROP TABLE IF EXISTS Addresses")
+                c.execute("DROP TABLE IF EXISTS Addresses")  # drops table addresses
                 print("Dropped table Addresses")
                 conn.commit()
                 print("Dropped all tables")
@@ -313,7 +315,6 @@ def menu():
                 print("Invalid entry")
         elif choice == '7':
             print("Exit")
-            # You can add your code or functions here
             loop = False  # This will make the while loop to end as not value of loop is set to False
         else:
             # Any integer inputs other than values 1-4 we print an error message
