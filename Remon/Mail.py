@@ -18,12 +18,8 @@ loop2 = False
 
 
 def main(image, image_type, part_type):
-    try:
-        os.remove("log_foto's.txt")
-    except OSError:
-        pass
     extract_file_type.main(image, image_type, "inbox, trash, sent", "../Extracted/mail", part_type)
-    with open("log_mail's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("Succesfully extracted MBOX files from image file." + "\n")
     # Extracts the inbox, trash and sent mbox's from the image that is given in the main.py
     # extracts them to ../Extracted/mail/
@@ -33,7 +29,7 @@ def main(image, image_type, part_type):
         removeduplicates("email_adres.txt")  # deletes duplicate email adresses
     except IOError:
         print("There where no mbox files found")
-        with open("log_mail's.txt", "a") as log:
+        with open("Log.txt", "a") as log:
             log.write("There where no MBOX files" + "\n")
         # if the file it wants to open is not found return this string
 
@@ -48,7 +44,7 @@ def removeduplicates(inputfile):
             listadres.append(line)  # if not seen add to this list
             lines_seen.add(line)  # after add it to the list with seen lines
     os.remove(inputfile)  # removes the file with emails so it doesnt get a mess
-    with open("log_mail's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("email address duplicates removed" + "\n")
 
 
@@ -93,7 +89,7 @@ def graph():
         if str(value) not in seen:
             output.append(value)
             seen.add(str(value))
-    with open("log_mail's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("removing graph duplicats" + "\n")
 
     # next piece of code is for creating and displaying graphs.
@@ -107,18 +103,18 @@ def graph():
     # loops through all items in the output list and places them in the graph
     for item in output:
         g.edge(item[0], item[1])  # this basicly says that item[0] goes to item[1]
-    with open("log_mail's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("Constructing graph" + "\n")
     try:
         g.view()
-        with open("log_mail's.txt", "a") as log:
+        with open("Log.txt", "a") as log:
             log.write("graph made" + "\n")
         # this is the part that makes the graph into a pdf format so it can be seen          ###WARNING###
         # this also opens the pdf file in the users pdf reader                               ###WARNING###
         # this one line is the cause of a warning. but the script still functions            ###WARNING###
     except RuntimeError:
         print("Graphviz is not installed on the system or is not in the systems PATH")
-        with open("log_mail's.txt", "a") as log:
+        with open("Log.txt", "a") as log:
             log.write("making graph failed" + "\n")
         # if graphviz is not installed or is not correctly added to system PATH this string will be shown
 
@@ -129,7 +125,7 @@ def emails(inputfolder, trashornot):  # the trash or not is True if the file is 
     mbox = mailbox.mbox(inputfolder)  # defines what the mail is
     templist = []  # creates a temporary list
     templist2 = []  # creates a temporary list
-    with open("log_mail's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("Adding mbox messages to a list" + "\n")
     for message in mbox:  # loops through all messages in an mbox
         templist.append(message['Date'])
@@ -153,7 +149,7 @@ def emails(inputfolder, trashornot):  # the trash or not is True if the file is 
         listmail.append(templist)  # appends the templist to the listmail to create a nested list
         templist = []   # clears the templist so data does not get duplicated
         templist2 = []  # clears the templist so data does not get duplicated
-    with open("log_mail's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("Added mbox messages to a list" + "\n")
 
 
@@ -164,12 +160,12 @@ def printemail():
     print("The body will not be shown when you select 0")
     mail = input("which mail do you want to see? ") - 1  # -1 because a list begins at 0
     print("")
-    with open("log_mail's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("trying to print 1 or more emails" + "\n")
     try:
         if mail < 0:
             i = 1
-            with open("log_mail's.txt", "a") as log:
+            with open("Log.txt", "a") as log:
                 log.write("Printing all emails without body" + "\n")
             for item in listmail:
                 print("This is mail nr. %s" % i)  # this is to keep track of what number an
@@ -185,7 +181,7 @@ def printemail():
                 print("")
                 i += 1  # this is to keep track of what number an email is for if you want to view it with body
         else:  # this one prints the specific email you want with body
-            with open("log_mail's.txt", "a") as log:
+            with open("Log.txt", "a") as log:
                 log.write("printing mail {} with body to terminal".format(mail) + "\n")
             print("Deleted: %s" % listmail[mail][5])
             print("Date: %s" % listmail[mail][0])
@@ -195,7 +191,7 @@ def printemail():
             print("Body: \n %s" % listmail[mail][4])
     except IndexError:
         print("Mail not found")
-        with open("log_mail's.txt", "a") as log:
+        with open("Log", "a") as log:
             log.write("choosen email not found" + "\n")
         # if the user selects an email number that is not in the list.
         # for example the list has 300 emails and the user searchers for mail 539
@@ -204,20 +200,20 @@ def printemail():
 # Locates email addresses in text files
 def find_aders(fileloc):
     in_file = open(fileloc, "rt")
-    with open("log_mail's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("Searching for email addresses" + "\n")
     for line in in_file:  # searches each file lin by line
         match = re.search(r'[\w\-][\w\-\.]+@[\w\-][\w\-\.]+[a-zA-Z]', line)  # regular expression detects addresses
         if match is not None: # if there is a match write it to a file
             with open("email_adres.txt", "a") as myfile:
                 myfile.write(match.group(0) + "\n")  # writes an email address and then places an Enter
-    with open("log_mail's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("writing emailaddresses to email_adres.txt" + "\n")
 
 
 # reads .mbox files and then searches for email addresses
 def read_mbox_files():
-    with open("log_mail's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("Walking through folder" + "\n")
         log.write("Reasearching folder" + "\n")
     for root, dirs, files in os.walk("..\Extracted\mail"):              # This part of the script walks through
@@ -236,7 +232,7 @@ def read_mbox_files():
 
 def show_del_mails():
     i = 1
-    with open("log_mail's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("searching and printing deleted emails" + "\n")
     for item in listmail:                                           # This script goes through all items in listmail
         if item[5] is True:                                         # and if item[5] (trashornot) is true
@@ -260,7 +256,7 @@ def table1(c):  # this adds data in a database table
     print("Table Addresses Done")
     global loop1
     loop1 = True  # if set a variabele to True to check if the script is done
-    with open("log_mail's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("Adding data to table Addresses" + "\n")
 
 
@@ -274,7 +270,7 @@ def table2(c):
     print("Table Emails Done")
     global loop2
     loop2 = True  # if set a variabele to True to check if the script is done
-    with open("log_mail's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("Adding data to table Emails" + "\n")
 
 
@@ -288,7 +284,7 @@ def listtodb():
     # Make table with 6 columns
     c.execute("CREATE TABLE IF NOT EXISTS Emails('Datum' TEXT, 'From' TEXT, 'To' TEXT,"
               " 'Subject' TEXT, 'Body' TEXT, 'Deleted' TEXT)")
-    with open("log_mail's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("creating tables if they did not exist" + "\n")
 
     Process(target=table2(c)).start()  # runs this line alogside the one below it
@@ -301,7 +297,7 @@ def listtodb():
 
 # def that prints the menu options
 def print_menu1():
-    with open("log_mail's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("Printing menu" + "\n")
     print("")
     print(34 * "-", "MENU", 34 * "-")
@@ -355,7 +351,7 @@ def menu():
                 print("Dropped table Addresses")
                 conn.commit()
                 print("Dropped all tables")
-                with open("log_mail's.txt", "a") as log:
+                with open("Log.txt", "a") as log:
                     log.write("Dropped existing tables" + "\n")
                 listtodb()
             elif yesorno.lower() == "n":

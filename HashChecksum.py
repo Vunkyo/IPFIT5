@@ -3,7 +3,7 @@ import sqlite3
 
 
 def hashfile(inputfile):
-    with open("log_main.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("Hashing file %s" % inputfile + "\n")
     read_size = 1024  # You can make this bigger
     checksumsha256 = hashlib.sha256()  # simplify the function name
@@ -29,12 +29,12 @@ def hashfile(inputfile):
         c.execute("CREATE TABLE IF NOT EXISTS Hash(File TEXT, SHA256 TEXT)")
         c.execute('INSERT INTO Hash VALUES(?,?)', (inputfile, checksumsha256))
         conn.commit()
-        with open("log_main.txt", "a") as log:
+        with open("Log.txt", "a") as log:
             log.write("Writing hash to Database" + "\n")
 
     except IOError:
         print("There is no such file")
-        with open("log_main.txt", "a") as log:
+        with open("Log.txt", "a") as log:
             log.write("Can't find %s" % inputfile + "\n")
 
 
