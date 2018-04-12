@@ -3,6 +3,8 @@ import os
 import pytsk3
 import sys
 
+
+# Copyright
 """
 MIT License
 Copyright (c) 2017 Chapin Bryce, Preston Miller
@@ -26,15 +28,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+# Original Author of the script
 __authors__ = ["Chapin Bryce", "Preston Miller"]
 __date__ = 20170815
 __description__ = "Utility to extract files from evidence containers"
 
 
+#
 def main(image, img_type, ext, output, part_type):
-    volume = None
-    print("[+] Opening {}".format(image))
-    if img_type == "ewf":
+    volume = None  # Instantiate the volume variable with none to avoid erros referencing it later
+    print("[+] Opening {}".format(image))  # Printing status message
+    if img_type == "ewf":  # Check for E01
         print("jammer")
     else:
         img_info = pytsk3.Img_Info(image)
@@ -42,59 +46,63 @@ def main(image, img_type, ext, output, part_type):
     try:
         if part_type is not None:
             attr_id = getattr(pytsk3, "TSK_VS_TYPE_" + part_type)
-            volume = pytsk3.Volume_Info(img_info, attr_id)
+            volume = pytsk3.Volume_Info(img_info, attr_id)  # Partition type argumunt andd attribute ID
         else:
             volume = pytsk3.Volume_Info(img_info)
     except IOError:
-        _, e, _ = sys.exc_info()
-        print("[-] Unable to read partition table:\n {}".format(e))
+        _, e, _ = sys.exc_info()  # Catch the exception as e and print it to the console
+        print("[-] Unable to read partition table:\n {}".format(e))  # Printing status message
 
-    open_fs(volume, img_info, ext, output)
+    open_fs(volume, img_info, ext, output)  # Used in open_fs
 
 
 def open_fs(vol, img, ext, output):
     # Open FS and Recurse
     print("[+] Recursing through files and writing file extension matches "
-          "to output directory")
-    if vol is not None:
-        for part in vol:
+          "to output directory")  # Printing status message
+    if vol is not None:  # Itterate through each partition and attempt to open it if it meets criteria
+        for part in vol:  # Itterate through each partition  and check wether it is greater than 2048 sectors and does
+                            # not contan the words Unallocated, Extended or Primary Table
             if part.len > 2048 and "Unallocated" not in part.desc \
                     and "Extended" not in part.desc \
                     and "Primary Table" not in part.desc:
-                try:
+                try:  # Try to acces the filesystem by supplying the offset of the partition in bytes
                     fs = pytsk3.FS_Info(
                         img, offset=part.start * vol.info.block_size)
                 except IOError:
-                    _, e, _ = sys.exc_info()
-                    print("[-] Unable to open FS:\n {}".format(e))
-                root = fs.open_dir(path="/")
+                    _, e, _ = sys.exc_info()  # Catch the exception as e and print it to the console
+                    print("[-] Unable to open FS:\n {}".format(e))  # Printing status message
+                root = fs.open_dir(path="/")  # Get the root directory annd pass that, along with the partition ID, the
+                                            # filesystem, two empty lists and an empty string to the recurse_file method
                 recurse_files(part.addr, fs, root, [], [""], ext, output)
 
     else:
         try:
             fs = pytsk3.FS_Info(img)
         except IOError:
-            _, e, _ = sys.exc_info()
-            print("[-] Unable to open FS:\n {}".format(e))
-        root = fs.open_dir(path="/")
+            _, e, _ = sys.exc_info() # Catch the exception as e and print it to the console
+            print("[-] Unable to open FS:\n {}".format(e))  # Printing status message
+        root = fs.open_dir(path="/")# Get the root directory annd pass that, along with the partition ID, the
+                                            # filesystem, two empty lists and an empty string to the recurse_file method
         recurse_files(1, fs, root, [], [""], ext, output)
 
 
 def recurse_files(part, fs, root_dir, dirs, parent, ext, output):
-    extensions = [x.strip().lower() for x in ext.split(',')]
-    dirs.append(root_dir.info.fs_file.meta.addr)
+    extensions = [x.strip().lower() for x in ext.split(',')] #  Defines extensions
+    dirs.append(root_dir.info.fs_file.meta.addr) #  Appends dir
     for fs_object in root_dir:
         # Skip ".", ".." or directory entries without a name.
+        # Used to avoid unending loops
         if not hasattr(fs_object, "info") or \
                 not hasattr(fs_object.info, "name") or \
                 not hasattr(fs_object.info.name, "name") or \
                 fs_object.info.name.name in [".", ".."]:
             continue
-        try:
+        try: #
             file_name = fs_object.info.name.name
             file_path = "{}/{}".format("/".join(parent),
                                        fs_object.info.name.name)
-            try:
+            try: #  If the object is a file and it has an extension, extract it and store it in the file_exe variable
                 if fs_object.info.meta.type == pytsk3.TSK_FS_META_TYPE_DIR:
                     f_type = "DIR"
                     file_ext = ""
@@ -126,7 +134,7 @@ def recurse_files(part, fs, root_dir, dirs, parent, ext, output):
     dirs.pop(-1)
 
 
-def file_writer(fs_object, name, ext, path, output):
+def file_writer(fs_object, name, ext, path, output):  # Extracts the file
     output_dir = os.path.join(output, ext,
                               os.path.dirname(path.lstrip("//")))
     if not os.path.exists(output_dir):
