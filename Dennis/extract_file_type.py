@@ -1,7 +1,6 @@
 from __future__ import print_function
 import os
 import pytsk3
-import pyewf
 import sys
 
 """
@@ -36,18 +35,7 @@ def main(image, img_type, ext, output, part_type):
     volume = None
     print("[+] Opening {}".format(image))
     if img_type == "ewf":
-        try:
-            filenames = pyewf.glob(image)
-        except IOError:
-            _, e, _ = sys.exc_info()
-            print("[-] Invalid EWF format:\n {}".format(e))
-            sys.exit(2)
-
-        ewf_handle = pyewf.handle()
-        ewf_handle.open(filenames)
-
-        # Open PYTSK3 handle on EWF Image
-        img_info = EWFImgInfo(ewf_handle)
+        print("jammer")
     else:
         img_info = pytsk3.Img_Info(image)
 

@@ -1,6 +1,5 @@
 from __future__ import print_function
 import pytsk3
-import pyewf
 import sys
 from tabulate import tabulate
 
