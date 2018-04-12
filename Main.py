@@ -6,6 +6,7 @@ from Sander import Pcap
 from Remon import Mail
 from Dennis import foto
 import os
+import ReadDB
 
 
 def ascii():
@@ -42,10 +43,8 @@ def clearhashfile():
 
 
 def loadimagefile():
-    AskStuf.ask()  # asks the user for info like researcher and case nr.
-    AskStuf.save("ChecksumLog.txt")  # writes the given info to a file in this case checksumlog.txt
     # this could also write it to a database if that is needed
-    with open("log_main.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("Asking info" + "\n")
 
     print("---------------------------------------------------------------------------")
@@ -77,10 +76,11 @@ def print_menu1():
     print("1. Load Image file")
     print("2. Load PCAP file")
     print("3. Clear Hash.db")
-    print("4. Exit")
+    print("4. Reading Database")
+    print("5. Exit")
     print(75 * "-")
     print("")
-    with open("log_main.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("Printing menu" + "\n")
 # dit is een test. een beter optie menu word later toegevoegd
 
@@ -95,19 +95,25 @@ def print_menu2():
     print("4. Exit")
     print(75 * "-")
     print("")
-    with open("log_main.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("Printing menu" + "\n")
 
 
 # main script. runs the menu which will call other functions
 def main():
+    ascii()
+
+    AskStuf.ask()  # asks the user for info like researcher and case nr.
+    AskStuf.save("Log.txt")  # writes the given info to a file in this case checksumlog.txt
+
     try:
-        os.remove("log_main.txt")
+        os.remove("Log.txt")
     except OSError:
         pass
-    ascii()
     loop = True
     global var
+    with open("Log.txt", "a") as log:
+        log.write("Printing menu" + "\n")
 
     while loop:  # While loop which will keep going until loop = False
         if var == 0:  # if var is 0 run this menu if it is 1 run the other menu
@@ -115,22 +121,25 @@ def main():
             choice = raw_input("Enter your choice [1-4]: ")
             if choice == '1':
                 print("Menu 1 has been selected")
-                with open("log_main.txt", "a") as log:
+                with open("Log.txt", "a") as log:
                     log.write("loading image file" + "\n")
                 loadimagefile()
             elif choice == '2':
                 print("Menu 2 has been selected")
-                with open("log_main.txt", "a") as log:
+                with open("Log.txt", "a") as log:
                     log.write("staring Pcap.py" + "\n")
                 Pcap.start()  # runs the main function from Pcap.py
             elif choice == '3':
                 print("Menu 3 has been selected")
-                with open("log_main.txt", "a") as log:
+                with open("Log.txt", "a") as log:
                     log.write("clearing the hash database" + "\n")
                 clearhashfile()  # clears the hash db
             elif choice == '4':
+                print("Menu 4 has been selected")
+                ReadDB.menu()
+            elif choice == '5':
                 print("Exit")
-                with open("log_main.txt", "a") as log:
+                with open("Log.txt", "a") as log:
                     log.write("Stopping script" + "\n")
                 loop = False  # This will make the while loop to end as not value of loop is set to False
             else:
@@ -141,7 +150,7 @@ def main():
             choice = raw_input("Enter your choice [1-4]: ")
             if choice == '1':
                 print("Menu 1 has been selected")
-                with open("log_main.txt", "a") as log:
+                with open("Log.txt", "a") as log:
                     log.write("Starting foto.py" + "\n")
                 global imagefile  # tells this function to take the imagefile previously defined
                 global imagetype  # tells this function to take the imagetype previously defined
@@ -149,7 +158,7 @@ def main():
                 foto.main(imagefile, imagetype, part_type)  # runs the main function in foto.py
             elif choice == '2':
                 print("Menu 2 has been selected")
-                with open("log_main.txt", "a") as log:
+                with open("Log.txt", "a") as log:
                     log.write("Starting Mail.py" + "\n")
                 part_type = raw_input("What is the partition type? (When unsure try DOS) ")  # ask part_type
                 Mail.main(imagefile, imagetype, part_type)  # runs the main function in Mail.py
@@ -159,7 +168,7 @@ def main():
                 var = 0  # makes var 0 again so you can either select an img again or select pcap
             elif choice == '4':
                 print("Exit")
-                with open("log_main.txt", "a") as log:
+                with open("Log.txt", "a") as log:
                     log.write("Stopping script" + "\n")
                 loop = False  # This will make the while loop to end as not value of loop is set to False
             else:
