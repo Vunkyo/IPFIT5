@@ -7,6 +7,8 @@ from Remon import Mail
 from Dennis import foto
 import os
 import ReadDB
+import sqlite3
+import pandas as pd
 
 
 def ascii():
@@ -77,7 +79,8 @@ def print_menu1():
     print("2. Load PCAP file")
     print("3. Clear Hash.db")
     print("4. Reading Database")
-    print("5. Exit")
+    print("5. Show CoC")
+    print("6. Exit")
     print(75 * "-")
     print("")
     with open("Log.txt", "a") as log:
@@ -118,7 +121,7 @@ def main():
     while loop:  # While loop which will keep going until loop = False
         if var == 0:  # if var is 0 run this menu if it is 1 run the other menu
             print_menu1()  # Displays menu
-            choice = raw_input("Enter your choice [1-4]: ")
+            choice = raw_input("Enter your choice [1-6]: ")
             if choice == '1':
                 print("Menu 1 has been selected")
                 with open("Log.txt", "a") as log:
@@ -138,6 +141,15 @@ def main():
                 print("Menu 4 has been selected")
                 ReadDB.menu()
             elif choice == '5':
+                pd.set_option('display.height', 2000)
+                pd.set_option('display.max_rows', 2000)
+                pd.set_option('display.max_columns', 2000)
+                pd.set_option('display.width', 2000)
+                pd.set_option('display.max_colwidth', 1000)
+                conn = sqlite3.connect("Hash.db")
+                print("Menu 5 has been selected")
+                print(pd.read_sql_query("SELECT * FROM Hash", conn))
+            elif choice == '6':
                 print("Exit")
                 with open("Log.txt", "a") as log:
                     log.write("Stopping script" + "\n")
