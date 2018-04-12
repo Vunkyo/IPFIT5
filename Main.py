@@ -139,16 +139,23 @@ def main():
                 clearhashfile()  # clears the hash db
             elif choice == '4':
                 print("Menu 4 has been selected")
-                ReadDB.menu()
+                try:
+                    ReadDB.menu()
+                except IOError:
+                    print("Database not found")
             elif choice == '5':
-                pd.set_option('display.height', 2000)
-                pd.set_option('display.max_rows', 2000)
-                pd.set_option('display.max_columns', 2000)
-                pd.set_option('display.width', 2000)
-                pd.set_option('display.max_colwidth', 1000)
-                conn = sqlite3.connect("Hash.db")
-                print("Menu 5 has been selected")
-                print(pd.read_sql_query("SELECT * FROM Hash", conn))
+                try:
+                    pd.set_option('display.height', 2000)
+                    pd.set_option('display.max_rows', 2000)
+                    pd.set_option('display.max_columns', 2000)
+                    pd.set_option('display.width', 2000)
+                    pd.set_option('display.max_colwidth', 1000)
+                    conn = sqlite3.connect("Hash.db")
+                    print("Menu 5 has been selected")
+                    print(pd.read_sql_query("SELECT * FROM Hash", conn))
+                except pd.io.sql.DatabaseError:
+                    print("Table has no data")
+
             elif choice == '6':
                 print("Exit")
                 with open("Log.txt", "a") as log:
