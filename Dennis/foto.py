@@ -14,16 +14,15 @@ fotolist = []
 # Extracts every .JPG from the images writes them to  ../Extracted/foto
 def main(image, image_type, part_type):
     try:
-        os.remove("log_foto's.txt")
         os.remove("Exif Information.txt")
     except OSError:
         pass
     # Writing output to 'log_foto's
-    with open("log_foto's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("Extracting .JPG's from previously selected image file..." + "\n")
     extract_file_type.main(image, image_type, "jpg", "../Extracted/foto", part_type)
     # Writing output to 'log_foto's
-    with open("log_foto's.txt", "a") as log:
+    with open("Log.txt", "a") as log:
         log.write("Succesfully extracted .JPG's from image file." + "\n")
     menu()
 
@@ -127,16 +126,16 @@ def menu():
             if option.lower() == "y":
                 print("Extracting EXIF information...")
                 # Writing output to 'log_foto's
-                with open("log_foto's.txt", "a") as log:
+                with open("Log.txt", "a") as log:
                     log.write("Extracting EXIF information from previously extracted .JPG's..." + "\n")
                 show_exif()
                 # Writing output to 'log_foto's
-                with open("log_foto's.txt", "a") as log:
-                    log.write("Writing extracted EXIF information to 'log_foto's'..." + "\n")
+                with open("Log.txt", "a") as log:
+                    log.write("Writing extracted EXIF information to 'Log'..." + "\n")
                     log.write("Done!" + "\n")
                 print("Done!")
                 # Writing output to 'log_foto's
-                with open("log_foto's.txt", "a") as log:
+                with open("Log.txt", "a") as log:
                     log.write("Succesfully extracted EXIF information from previously extracted .JPG's." + "\n")
             elif option.lower() == "n":
                 print("")
@@ -150,13 +149,13 @@ def menu():
             print("")
             print("Getting list with EXIF Information from extracted .JPG's...")
             # Writing output to 'log_foto's
-            with open("log_foto's.txt", "a") as log:
+            with open("Log.txt", "a") as log:
                 log.write("Getting list with EXIF information from extracted .JPG's..." + "\n")
             show_list()
             print("")
             print("Done!")
             # Writing output to 'log_foto's
-            with open("log_foto's.txt", "a") as log:
+            with open("Log.txt", "a") as log:
                 log.write("Succesfully printed list with EXIF information from extracted .JPG's." + "\n")
         elif choice == '3':
             # Sorts the extracted EXIF information from the extracted .JPGS
@@ -164,13 +163,13 @@ def menu():
             print("Menu 3 has been selected")
             print("Getting used camera's from extracted .JPGS's...")
             # Writing output to 'log_foto's
-            with open("log_foto's.txt", "a") as log:
+            with open("Log.txt", "a") as log:
                 log.write("Getting used camera's from extracted .JPG's..." + "\n")
             show_camera()
             print("")
             print("Done!")
             # Writing output to 'log_foto's
-            with open("log_foto's.txt", "a") as log:
+            with open("Log.txt", "a") as log:
                 log.write("Succesfully found used camera's from extracted .JPG's." + "\n")
         elif choice == '4':
             # Writes the content of fotolist to a .db file
@@ -180,35 +179,35 @@ def menu():
             if option.lower() == "y":
                 print("Dropping table...")
                 # Writing output to 'log_foto's
-                with open("log_foto's.txt", "a") as log:
+                with open("Log.txt", "a") as log:
                     log.write("Dropping table from the previous extracted .JPG table..." + "\n")
                 conn = sqlite3.connect("Photo.db")
                 c = conn.cursor()
                 c.execute("DROP TABLE IF EXISTS Photos")
                 print("Table has succesfully been dropped.")
                 # Writing output to 'log_foto's
-                with open("log_foto's.txt", "a") as log:
+                with open("Log.txt", "a") as log:
                     log.write("Table has succesfully been dropped." + "\n")
                 print("")
                 print("Writing table to database...")
                 # Writing output to 'log_foto's
-                with open("log_foto's.txt", "a") as log:
+                with open("Log.txt", "a") as log:
                     log.write("Writing table to the database..." + "\n")
                 listtodb()
                 print("Done!")
                 # Writing output to 'log_foto's
-                with open("log_foto's.txt", "a") as log:
+                with open("Log.txt", "a") as log:
                     log.write("Table has succesfully been written to the database." + "\n")
             elif option.lower() == "n":
                 print("")
                 print("Writing table to database...")
                 # Writing output to 'log_foto's
-                with open("log_foto's.txt", "a") as log:
+                with open("Log.txt", "a") as log:
                     log.write("Writing table to the database..." + "\n")
                 listtodb()
                 print("Done!")
                 # Writing output to 'log_foto's
-                with open("log_foto's.txt", "a") as log:
+                with open("Log.txt", "a") as log:
                     log.write("Table has succesfully been written to the database." + "\n")
             else:
                 print("Unknown argument. Returning to menu...")
@@ -216,7 +215,7 @@ def menu():
             # Exits the menu and returns to the main
             print("Returning to main menu...")
             # Writing output to 'log_foto's
-            with open("log_foto's.txt", "a") as log:
+            with open("Log.txt", "a") as log:
                 log.write("Returning to main menu..." + "\n")
             loop = False  # This will make the while loop to end as not value of loop is set to False
         else:
