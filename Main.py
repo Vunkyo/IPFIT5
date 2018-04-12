@@ -57,8 +57,8 @@ def loadimagefile():
 
     imagefile = raw_input("Choose your image file: ")                                   # ask user for imagefile
     imagetype = raw_input("Is your image raw of ewf? ")                                 # ask user for imagetype
-    imageoffset = input("What is your image offset? (if you are unsure try 32256) ")    # ask user for imageoffset
-    # the offset will be "32256" for alot of images
+    imageoffset = input("What is your image offset? (if you are unsure try 16384) ")    # ask user for imageoffset
+    # the offset will be "32256" for alot of images but the image supplied with this program uses 16384
 
     print("---------------------------------------------------------------------------")
     print("")
