@@ -6,6 +6,7 @@ from Sander import Pcap
 from Remon import Mail
 from Dennis import foto
 import os
+import ReadDB
 
 
 def ascii():
@@ -75,7 +76,8 @@ def print_menu1():
     print("1. Load Image file")
     print("2. Load PCAP file")
     print("3. Clear Hash.db")
-    print("4. Exit")
+    print("4. Reading Database")
+    print("5. Exit")
     print(75 * "-")
     print("")
     with open("Log.txt", "a") as log:
@@ -99,6 +101,8 @@ def print_menu2():
 
 # main script. runs the menu which will call other functions
 def main():
+    ascii()
+
     AskStuf.ask()  # asks the user for info like researcher and case nr.
     AskStuf.save("Log.txt")  # writes the given info to a file in this case checksumlog.txt
 
@@ -106,7 +110,6 @@ def main():
         os.remove("Log.txt")
     except OSError:
         pass
-    ascii()
     loop = True
     global var
     with open("Log.txt", "a") as log:
@@ -132,6 +135,9 @@ def main():
                     log.write("clearing the hash database" + "\n")
                 clearhashfile()  # clears the hash db
             elif choice == '4':
+                print("Menu 4 has been selected")
+                ReadDB.menu()
+            elif choice == '5':
                 print("Exit")
                 with open("Log.txt", "a") as log:
                     log.write("Stopping script" + "\n")
