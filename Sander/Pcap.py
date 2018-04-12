@@ -54,7 +54,7 @@ def hashfile(inputfile):
 
     # Writes to the log file what happens
     with open("Log.txt", "a") as myfile:
-        myfile.write("Creating table Hash for PCAP.db finished" + "\n")
+        myfile.write("Creating table Hash for PCAP.db and Hash.db finished" + "\n")
 
 
 # Clear the database tables that were created by this program
@@ -237,7 +237,7 @@ def start():
         print("----------------------------------- PCAP ----------------------------------- ")
         answer = raw_input("Do you want to analyse a Pcap file? Y/N ")
         if answer == "Y":
-            answer2 = raw_input("Do you want to delete the information of the old database? Y or press a button for no")
+            answer2 = raw_input("Do you want to delete the information of the old database? Y or press a button for no ")
             if answer2 == "Y":
                 with open("Log.txt", "a") as myfile:
                     myfile.write("Current date & time " + time.strftime("%c") + "\n")
@@ -267,7 +267,7 @@ def start():
                 print("This file doesn't exist! or is not a .pcap file")
                 loop3 = False
 
-            while loop3 == True:
+            while loop3 is True:
                 print("")
                 print("----------------------------------- MENU ----------------------------------- ")
                 answer3 = raw_input("1: Show Hashes from the PCAP-Files" + "\n" +
@@ -300,6 +300,7 @@ def start():
                 if answer3 == "5":
                     loop3 = False
                 # If option is not one of the options give a error the options is not an option
+
                 if answer3 != "1" and answer3 != "2" and answer3 != "3" and answer3 != "4" and answer3 != "5":
                     print(answer3 + " is not an option")
 
